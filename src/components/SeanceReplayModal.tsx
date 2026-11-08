@@ -30,7 +30,11 @@ export const SeanceReplayModal: React.FC = () => {
       : fontFamily === 'script'
       ? 'font-script text-lg'
       : fontFamily === 'modern'
-      ? 'font-modern'
+      ? 'font-sans-undertale'
+      : fontFamily === 'papyrus'
+      ? 'font-papyrus font-semibold'
+      : fontFamily === 'wingdings'
+      ? 'font-wingdings text-lg'
       : 'font-gothic';
 
   const currentSnapshot = snapshots[replayIndex] || snapshots[snapshots.length - 1];

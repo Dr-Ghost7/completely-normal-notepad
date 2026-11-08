@@ -387,7 +387,11 @@ export const Editor: React.FC<EditorProps> = ({
       : settings.fontFamily === 'script'
       ? 'font-script text-xl sm:text-2xl leading-8'
       : settings.fontFamily === 'modern'
-      ? 'font-modern text-base sm:text-lg leading-8'
+      ? 'font-sans-undertale text-base sm:text-lg leading-8'
+      : settings.fontFamily === 'papyrus'
+      ? 'font-papyrus text-base sm:text-lg leading-8 font-semibold tracking-wide'
+      : settings.fontFamily === 'wingdings'
+      ? 'font-wingdings text-lg sm:text-xl leading-8'
       : 'font-gothic text-base sm:text-lg leading-8';
 
   return (
@@ -440,7 +444,7 @@ export const Editor: React.FC<EditorProps> = ({
 
           {/* Quick Font Selector Pill */}
           <div className="flex items-center gap-1 bg-black/40 px-1 py-0.5 rounded-lg border border-purple-900/60">
-            {(['gothic', 'typewriter', 'script', 'modern'] as const).map((f) => (
+            {(['gothic', 'typewriter', 'script', 'modern', 'papyrus', 'wingdings'] as const).map((f) => (
               <button
                 key={f}
                 type="button"
@@ -450,9 +454,27 @@ export const Editor: React.FC<EditorProps> = ({
                     ? 'bg-purple-800 text-white font-bold shadow-sm'
                     : 'text-purple-400/70 hover:text-purple-200'
                 }`}
-                title={`Switch font to ${f}`}
+                title={
+                  f === 'modern'
+                    ? 'Sans (heya.)'
+                    : f === 'papyrus'
+                    ? 'Papyrus (NYEH HEH HEH!)'
+                    : f === 'wingdings'
+                    ? 'Wingdings (ENTRY NUMBER SEVENTEEN ☠︎)'
+                    : `Switch font to ${f}`
+                }
               >
-                {f === 'gothic' ? 'Gothic' : f === 'typewriter' ? 'Type' : f === 'script' ? 'Script' : 'Sans'}
+                {f === 'gothic'
+                  ? 'Gothic'
+                  : f === 'typewriter'
+                  ? 'Type'
+                  : f === 'script'
+                  ? 'Script'
+                  : f === 'modern'
+                  ? 'Sans'
+                  : f === 'papyrus'
+                  ? 'Papyrus'
+                  : 'Wingdings'}
               </button>
             ))}
           </div>

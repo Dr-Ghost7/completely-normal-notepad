@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@600;700;900&family=Special+Elite&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@600;700;900&family=Comic+Neue:wght@400;700&family=Special+Elite&display=swap');
 @import "tailwindcss";
 
 :root,
@@ -89,8 +89,20 @@ div[data-nextjs-toast] {
   letter-spacing: 0.02em;
 }
 
-.font-modern {
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+.font-modern,
+.font-sans-undertale {
+  font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.font-papyrus {
+  font-family: 'Papyrus', 'Copperplate Gothic', fantasy, cursive, sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.font-wingdings {
+  font-family: 'Wingdings', 'Wingdings 2', 'Wingdings 3', 'Webdings', 'Segoe UI Symbol', monospace;
+  letter-spacing: 0.08em;
 }
 
 /* Eerie Haunted Parchment Paper Styling */

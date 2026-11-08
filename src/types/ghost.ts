@@ -1,5 +1,5 @@
 export type GhostType = 'wisp' | 'word' | 'sentence' | 'regret' | 'poltergeist';
-export type NotepadFont = 'gothic' | 'typewriter' | 'script' | 'modern';
+export type NotepadFont = 'gothic' | 'typewriter' | 'script' | 'modern' | 'papyrus' | 'wingdings';
 export type ThemePreset = 'witching-hour' | 'blood-moon' | 'cemetery-crypt' | 'phantom-veil';
 
 export interface Ghost {

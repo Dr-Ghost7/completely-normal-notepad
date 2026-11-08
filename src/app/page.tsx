@@ -14,8 +14,7 @@ import { ExportModal } from '../components/ExportModal';
 import { ShareModal } from '../components/ShareModal';
 import { SpiritJar } from '../components/SpiritJar';
 import { CandleGroup } from '../components/CandleGroup';
-import { GothicBooks } from '../components/GothicBooks';
-import { BreakableArtifact } from '../components/BreakableArtifact';
+import { HauntedShelves } from '../components/HauntedShelves';
 import { Ghost } from '../types/ghost';
 import { getGhostTheme } from '../lib/ghostClassifier';
 import { Sparkles, Ghost as GhostIcon } from 'lucide-react';
@@ -99,10 +98,9 @@ export default function Home() {
         setDropTargetOffset={setDropTargetOffset}
       />
 
-      {/* Scattered Interactive Desk Accents */}
+      {/* Interactive Paranormal Accents */}
       <CandleGroup />
-      <GothicBooks />
-      <BreakableArtifact />
+      <HauntedShelves />
       <SpiritJar />
 
       {/* Minimal Footer */}
