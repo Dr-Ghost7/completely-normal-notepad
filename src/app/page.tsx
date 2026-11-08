@@ -1,69 +1,117 @@
-import Image from "next/image";
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { useGhostStore } from '../store/ghostStore';
+import { decodeShareableUrl } from '../lib/urlShare';
+import { HauntingAtmosphere } from '../components/HauntingAtmosphere';
+import { Header } from '../components/Header';
+import { Editor } from '../components/Editor';
+import { GhostLayer } from '../components/GhostLayer';
+import { GraveyardDrawer } from '../components/GraveyardDrawer';
+import { SeanceReplayModal } from '../components/SeanceReplayModal';
+import { ExportModal } from '../components/ExportModal';
+import { ShareModal } from '../components/ShareModal';
+import { Ghost } from '../types/ghost';
+import { getGhostTheme } from '../lib/ghostClassifier';
+import { Sparkles, Ghost as GhostIcon } from 'lucide-react';
 
 export default function Home() {
+  const [dropTargetOffset, setDropTargetOffset] = useState<number | null>(null);
+  const loadFromShare = useGhostStore((state) => state.loadFromShare);
+  const setSetting = useGhostStore((state) => state.setSetting);
+  const toggleModal = useGhostStore((state) => state.toggleModal);
+  const ghosts = useGhostStore((state) => state.ghosts);
+
+  // Check URL hash for shared note on initial load
+  useEffect(() => {
+    const payload = decodeShareableUrl();
+    if (payload) {
+      const reconstructedGhosts: Ghost[] = payload.ghosts.map((g) => {
+        const theme = getGhostTheme(g.type);
+        return {
+          id: g.id,
+          text: g.text,
+          type: g.type,
+          x: g.x,
+          y: g.y,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: -0.3,
+          originX: g.x,
+          originY: g.y,
+          createdAt: g.createdAt,
+          characterCount: g.text.length,
+          contextSentence: g.contextSentence,
+          lifeSpanBeforeDeletionMs: 2000,
+          opacity: 0.85,
+          scale: theme.baseScale,
+          wobblePhase: Math.random() * Math.PI * 2,
+          colorTheme: {
+            text: theme.text,
+            glow: theme.glow,
+            border: theme.border,
+            background: theme.background,
+          },
+        };
+      });
+
+      loadFromShare(payload.text, reconstructedGhosts);
+      // Clean up hash to keep URL tidy
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+
+    // Check system prefers-reduced-motion
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setSetting('reducedMotion', true);
+    }
+  }, [loadFromShare, setSetting]);
+
+  const handleGhostDrop = (ghostId: string, charOffset: number | null) => {
+    // Handled directly inside GhostLayer & Editor via Zustand store
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="relative min-h-screen flex flex-col bg-[#09040e] text-purple-100 transition-colors duration-700 selection:bg-rose-900/60 selection:text-white">
+      {/* Dynamic paranormal atmosphere (ambient light dimming, candle flicker, vignette) */}
+      <HauntingAtmosphere />
+
+      {/* Top Application Header */}
+      <Header />
+
+      {/* Main Notepad Editing Area */}
+      <main className="relative z-10 flex-1 flex flex-col justify-start py-4 sm:py-8">
+        <Editor
+          dropTargetOffset={dropTargetOffset}
+          setDropTargetOffset={setDropTargetOffset}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
       </main>
+
+      {/* Floating Ghost Physics Layer - Rendered on top of main notepad */}
+      <GhostLayer
+        onGhostDrop={handleGhostDrop}
+        setDropTargetOffset={setDropTargetOffset}
+      />
+
+      {/* Minimal Footer */}
+      <footer className="relative z-20 py-2.5 px-6 border-t border-purple-900/30 bg-[#0a0312]/90 backdrop-blur-md text-[11px] text-purple-400/60 font-serif">
+        <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+            <span className="text-purple-400/70">
+              Completely Normal Notepad &bull; Nothing unusual here
+            </span>
+          </div>
+
+          <div className="text-purple-400/50 italic">
+            All deleted words stay on your device
+          </div>
+        </div>
+      </footer>
+
+      {/* Interactive Modals and Side Drawers */}
+      <GraveyardDrawer />
+      <SeanceReplayModal />
+      <ExportModal />
+      <ShareModal />
     </div>
   );
 }
