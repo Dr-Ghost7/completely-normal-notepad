@@ -495,18 +495,9 @@ export const GhostLayer: React.FC<GhostLayerProps> = ({
                 : 'z-40 hover:scale-105'
             } ${ghost.type === 'wisp' ? 'animate-wisp-flicker text-xs' : ''}`}
           >
-            {/* Iconic Ghost Sheet Face: Spectral Eye Holes */}
-            <div
-              className="flex items-center gap-1 px-0.5 opacity-80 shrink-0"
-              title="Spectral eyes"
-            >
-              <span className="w-1.5 h-2 rounded-full bg-zinc-950 inline-block shadow-inner" />
-              <span className="w-1.5 h-2 rounded-full bg-zinc-950 inline-block shadow-inner" />
-            </div>
-
             {/* Ghost text content */}
             <span
-              className={`tracking-normal leading-tight px-0.5 ${
+              className={`tracking-normal leading-tight px-1 ${
                 ghost.fontFamily === 'wingdings'
                   ? 'font-wingdings text-base tracking-widest'
                   : ghost.fontFamily === 'papyrus'

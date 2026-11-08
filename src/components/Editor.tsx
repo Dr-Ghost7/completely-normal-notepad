@@ -398,31 +398,37 @@ export const Editor: React.FC<EditorProps> = ({
 
   return (
     <div className="relative w-full max-w-4xl mx-auto my-6 px-4">
-      {/* Possession Haunting Floating Prompt */}
+      {/* Possession Haunting Overlay Ribbon (Absolute: ZERO layout shift / nudge, No bounce) */}
       {possessingGhost && (
-        <div className="mb-3 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-purple-950/90 via-rose-950/90 to-purple-950/90 border border-rose-500/60 shadow-xl shadow-rose-950/40 backdrop-blur-md flex items-center justify-between text-xs text-rose-200 animate-bounce duration-1000">
-          <div className="flex items-center gap-2.5">
-            <Sparkles className="w-4 h-4 text-rose-400 animate-spin" style={{ animationDuration: '6s' }} />
-            <span>
-              A wandering spirit seeks rest in your manuscript:{' '}
-              <strong className="text-white underline decoration-rose-400 font-serif">
-                "{possessingGhost.text}"
+        <div
+          role="alert"
+          aria-live="polite"
+          className="absolute -top-9 left-1/2 -translate-x-1/2 z-30 max-w-[95%] sm:max-w-xl px-4 py-1.5 rounded-full bg-[#13071f]/95 border border-rose-500/50 shadow-[0_10px_30px_rgba(0,0,0,0.8),0_0_20px_rgba(244,63,94,0.25)] backdrop-blur-md flex items-center justify-between gap-3 text-xs text-rose-200 animate-in fade-in slide-in-from-top-2 duration-300"
+        >
+          <div className="flex items-center gap-2 truncate">
+            <GhostIcon className="w-3.5 h-3.5 text-rose-400 shrink-0 animate-pulse" />
+            <span className="truncate text-[11px] font-serif text-rose-200">
+              A wandering spirit whispers to return:{' '}
+              <strong className="text-white underline decoration-rose-400 font-semibold font-serif">
+                &ldquo;{possessingGhost.text}&rdquo;
               </strong>
             </span>
           </div>
-          <div className="flex items-center gap-2">
+
+          <div className="flex items-center gap-1.5 shrink-0">
             <button
               type="button"
               onClick={() => acceptPossession(possessingGhost.id)}
-              className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-rose-700 hover:bg-rose-600 text-white font-serif font-medium transition-colors cursor-pointer shadow-sm"
+              className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-rose-900/90 hover:bg-rose-800 text-rose-100 text-[10px] font-mono border border-rose-500/60 transition-colors cursor-pointer shadow-sm"
+              title="Accept spirit back into manuscript [Tab]"
             >
-              <Check className="w-3.5 h-3.5" />
-              <span>Accept [Tab]</span>
+              <Check className="w-3 h-3 text-rose-300" />
+              <span>Tab</span>
             </button>
             <button
               type="button"
               onClick={() => dismissPossession(possessingGhost.id)}
-              className="p-1 rounded-lg hover:bg-purple-900/60 text-purple-300 hover:text-white transition-colors cursor-pointer"
+              className="p-1 rounded-full hover:bg-white/10 text-rose-400 hover:text-white transition-colors cursor-pointer"
               title="Dismiss [Esc]"
             >
               <X className="w-3.5 h-3.5" />

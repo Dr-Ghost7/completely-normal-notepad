@@ -188,13 +188,8 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
                       onClick={() => restoreGhost(ghost.id)}
                       title={`"${ghost.text}" — Click to pluck out and return to notepad`}
                     >
-                      {/* Spectral Eyeholes */}
-                      <span className="flex items-center gap-0.5 opacity-80">
-                        <span className="w-1 h-1.5 rounded-full bg-zinc-950 inline-block" />
-                        <span className="w-1 h-1.5 rounded-full bg-zinc-950 inline-block" />
-                      </span>
                       <span
-                        className={`font-bold truncate max-w-[65px] ${
+                        className={`font-bold truncate max-w-[70px] px-0.5 ${
                           ghost.fontFamily === 'wingdings'
                             ? 'font-wingdings text-xs tracking-wider'
                             : ghost.fontFamily === 'papyrus'
@@ -239,13 +234,8 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
                       onClick={() => restoreGhost(ghost.id)}
                       title={`"${ghost.text}" (Sad Regret Ghost) — Sinking mournfully at bottom. Click to restore.`}
                     >
-                      {/* Sad Spectral Eyeholes */}
-                      <span className="flex items-center gap-0.5 opacity-90">
-                        <span className="w-1 h-1.5 rounded-full bg-rose-950 inline-block" />
-                        <span className="w-1 h-1.5 rounded-full bg-rose-950 inline-block" />
-                      </span>
                       <span
-                        className={`font-bold truncate max-w-[65px] text-rose-950 ${
+                        className={`font-bold truncate max-w-[70px] px-0.5 text-rose-950 ${
                           ghost.fontFamily === 'wingdings'
                             ? 'font-wingdings text-xs tracking-wider'
                             : ghost.fontFamily === 'papyrus'
