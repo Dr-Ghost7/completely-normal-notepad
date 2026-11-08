@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useGhostStore } from '../store/ghostStore';
 import { decodeShareableUrl } from '../lib/urlShare';
 import { HauntingAtmosphere } from '../components/HauntingAtmosphere';
+import { GraveyardBackground } from '../components/GraveyardBackground';
 import { Header } from '../components/Header';
 import { Editor } from '../components/Editor';
 import { GhostLayer } from '../components/GhostLayer';
@@ -12,7 +13,7 @@ import { SeanceReplayModal } from '../components/SeanceReplayModal';
 import { ExportModal } from '../components/ExportModal';
 import { ShareModal } from '../components/ShareModal';
 import { SpiritJar } from '../components/SpiritJar';
-import { OccultCandle } from '../components/OccultCandle';
+import { DeskAccents } from '../components/DeskAccents';
 import { Ghost } from '../types/ghost';
 import { getGhostTheme } from '../lib/ghostClassifier';
 import { Sparkles, Ghost as GhostIcon } from 'lucide-react';
@@ -73,6 +74,9 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen flex flex-col bg-[#09040e] text-purple-100 transition-colors duration-700 selection:bg-rose-900/60 selection:text-white">
+      {/* Cemetery Horizon Silhouette & Occult Full Moon Background */}
+      <GraveyardBackground />
+
       {/* Dynamic paranormal atmosphere (ambient light dimming, candle flicker, vignette) */}
       <HauntingAtmosphere />
 
@@ -94,7 +98,7 @@ export default function Home() {
       />
 
       {/* Atmospheric Desk Elements */}
-      <OccultCandle />
+      <DeskAccents />
       <SpiritJar />
 
       {/* Minimal Footer */}

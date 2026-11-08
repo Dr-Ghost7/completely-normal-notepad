@@ -225,28 +225,30 @@ export const GhostLayer: React.FC<GhostLayerProps> = ({
           vy *= 0.96;
         }
 
-        // 3. CURSOR EVASION & AERODYNAMIC WIND WAKE
+        // 3. PLAYFUL CURSOR INTERACTION (Easy to catch!)
         const mdx = x - mouse.x;
         const mdy = y - mouse.y;
         const mDist = Math.hypot(mdx, mdy);
 
-        // A) Cursor Evasion for Word ghosts
+        // A) Gentle Playful Evasion: Only dodges at a distance; once you get close (< 50px),
+        // it surrenders and lets you grab it easily!
         if (ghost.type === 'word' || ghost.type === 'poltergeist') {
-          const avoidanceRadius = 135;
-          if (mDist < avoidanceRadius && mDist > 0) {
-            const evadeStrength = (1 - mDist / avoidanceRadius) * 240;
+          const avoidanceRadius = 70;
+          // If cursor is within avoidance zone but NOT right on top of it, do a gentle dodge
+          if (mDist < avoidanceRadius && mDist > 45) {
+            const evadeStrength = (1 - mDist / avoidanceRadius) * 60;
             vx += (mdx / mDist) * evadeStrength * dt;
             vy += (mdy / mDist) * evadeStrength * dt;
 
-            if (mDist < 45 && soundEnabled && Math.random() < 0.04) {
+            if (soundEnabled && Math.random() < 0.02) {
               ghostAudio.playDodge(volume);
             }
           }
         }
 
-        // B) Cursor Aerodynamic Wind Wake (moving cursor fast pushes ghosts in wind direction!)
-        if (mouseSpeed > 350 && mDist < 160 && mDist > 0) {
-          const windFactor = (1 - mDist / 160) * 0.05;
+        // B) Cursor Aerodynamic Wind Wake: Only very fast swipes create a light breeze
+        if (mouseSpeed > 600 && mDist < 120 && mDist > 0) {
+          const windFactor = (1 - mDist / 120) * 0.025;
           vx += mouseVel.vx * windFactor;
           vy += mouseVel.vy * windFactor;
         }
