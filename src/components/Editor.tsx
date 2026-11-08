@@ -26,6 +26,8 @@ export const Editor: React.FC<EditorProps> = ({
   const acceptPossession = useGhostStore((state) => state.acceptPossession);
   const dismissPossession = useGhostStore((state) => state.dismissPossession);
   const triggerPossession = useGhostStore((state) => state.triggerPossession);
+  const settings = useGhostStore((state) => state.settings);
+  const setSetting = useGhostStore((state) => state.setSetting);
 
   const lastTypeTimeRef = useRef<number>(0);
   const textBirthTimesRef = useRef<Map<string, number>>(new Map());
@@ -302,6 +304,19 @@ export const Editor: React.FC<EditorProps> = ({
     isInternalUpdateRef.current = true;
     setDocumentText(newText, 'insert');
 
+    // Notify caret activity to scatter nearby ghosts
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount > 0) {
+      const rect = sel.getRangeAt(0).getBoundingClientRect();
+      if (rect.top > 0) {
+        window.dispatchEvent(
+          new CustomEvent('editor-caret-activity', {
+            detail: { x: rect.left, y: rect.top, action: 'type' },
+          })
+        );
+      }
+    }
+
     // Record creation timestamp for newly typed words
     const words = newText.split(/\s+/).filter(Boolean);
     const now = Date.now();
@@ -350,7 +365,30 @@ export const Editor: React.FC<EditorProps> = ({
     }
   };
 
+  const notifyCaretMove = () => {
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount > 0) {
+      const rect = sel.getRangeAt(0).getBoundingClientRect();
+      if (rect.top > 0) {
+        window.dispatchEvent(
+          new CustomEvent('editor-caret-activity', {
+            detail: { x: rect.left, y: rect.top, action: 'move' },
+          })
+        );
+      }
+    }
+  };
+
   const possessingGhost = ghosts.find((g) => g.id === possessingGhostId);
+
+  const fontClass =
+    settings.fontFamily === 'typewriter'
+      ? 'font-typewriter text-sm sm:text-base leading-8'
+      : settings.fontFamily === 'script'
+      ? 'font-script text-xl sm:text-2xl leading-8'
+      : settings.fontFamily === 'modern'
+      ? 'font-modern text-base sm:text-lg leading-8'
+      : 'font-gothic text-base sm:text-lg leading-8';
 
   return (
     <div className="relative w-full max-w-4xl mx-auto my-6 px-4">
@@ -389,16 +427,36 @@ export const Editor: React.FC<EditorProps> = ({
 
       {/* The Physical Haunted Grimoire / Manuscript Surface */}
       <div className="relative rounded-3xl shadow-2xl shadow-purple-950/70 overflow-hidden border border-purple-800/40 bg-[#12071c]">
-        {/* Notebook top binding bar (authentic stationery detailing) */}
-        <div className="h-8 bg-[#180924] border-b border-purple-900/60 px-5 flex items-center justify-between">
+        {/* Notebook top binding bar (authentic stationery detailing + font selector) */}
+        <div className="h-9 bg-[#180924] border-b border-purple-900/60 px-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-purple-950 border border-purple-800/80" />
             <div className="w-2 h-2 rounded-full bg-purple-950 border border-purple-800/80" />
             <div className="w-2 h-2 rounded-full bg-purple-950 border border-purple-800/80" />
+            <span className="text-[10px] font-mono text-purple-400/80 uppercase tracking-widest ml-1 hidden sm:inline">
+              Completely Normal Notepad &bull; No. 404
+            </span>
           </div>
-          <span className="text-[10px] font-mono text-purple-400/80 uppercase tracking-widest">
-            Completely Normal Notepad &bull; No. 404
-          </span>
+
+          {/* Quick Font Selector Pill */}
+          <div className="flex items-center gap-1 bg-black/40 px-1 py-0.5 rounded-lg border border-purple-900/60">
+            {(['gothic', 'typewriter', 'script', 'modern'] as const).map((f) => (
+              <button
+                key={f}
+                type="button"
+                onClick={() => setSetting('fontFamily', f)}
+                className={`px-1.5 py-0.5 rounded text-[10px] font-mono transition-colors cursor-pointer ${
+                  settings.fontFamily === f
+                    ? 'bg-purple-800 text-white font-bold shadow-sm'
+                    : 'text-purple-400/70 hover:text-purple-200'
+                }`}
+                title={`Switch font to ${f}`}
+              >
+                {f === 'gothic' ? 'Gothic' : f === 'typewriter' ? 'Type' : f === 'script' ? 'Script' : 'Sans'}
+              </button>
+            ))}
+          </div>
+
           <div className="text-[11px] font-mono text-purple-300/80">
             {documentText.trim().split(/\s+/).filter(Boolean).length} words
           </div>
@@ -414,8 +472,10 @@ export const Editor: React.FC<EditorProps> = ({
           onPaste={handlePaste}
           onCut={handleCut}
           onKeyDown={handleKeyDown}
+          onKeyUp={notifyCaretMove}
+          onClick={notifyCaretMove}
           aria-label="Completely Normal Notepad Editor"
-          className="paper-lined min-h-[560px] w-full p-8 pl-18 sm:pl-20 text-purple-100 focus:outline-none text-base sm:text-lg font-serif tracking-normal selection:bg-rose-900/60 selection:text-white cursor-text transition-all duration-300"
+          className={`paper-lined min-h-[560px] w-full p-8 pl-18 sm:pl-20 text-purple-100 focus:outline-none tracking-normal selection:bg-rose-900/60 selection:text-white cursor-text transition-all duration-300 ${fontClass}`}
         />
 
         {/* Drop target ghost indicator indicator */}

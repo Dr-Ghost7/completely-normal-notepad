@@ -18,25 +18,37 @@ export const SeanceReplayModal: React.FC = () => {
   const setReplayIndex = useGhostStore((state) => state.setReplayIndex);
   const stopSeance = useGhostStore((state) => state.stopSeance);
   const snapshots = useGhostStore((state) => state.snapshots);
+  const fontFamily = useGhostStore((state) => state.settings.fontFamily);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState<number>(1);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  const fontClass =
+    fontFamily === 'typewriter'
+      ? 'font-typewriter'
+      : fontFamily === 'script'
+      ? 'font-script text-lg'
+      : fontFamily === 'modern'
+      ? 'font-modern'
+      : 'font-gothic';
+
   const currentSnapshot = snapshots[replayIndex] || snapshots[snapshots.length - 1];
 
-  // Auto-playback loop
+  // Auto-playback loop (peppy and responsive: 1x = 260ms, 2x = 130ms, 4x = 65ms, 8x = 32ms)
   useEffect(() => {
     if (!isPlaying) {
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
 
+    const intervalMs = Math.max(25, Math.round(260 / speed));
+
     timerRef.current = setInterval(() => {
       setReplayIndex(
         replayIndex < snapshots.length - 1 ? replayIndex + 1 : 0
       );
-    }, 1200 / speed);
+    }, intervalMs);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -75,9 +87,9 @@ export const SeanceReplayModal: React.FC = () => {
           </button>
         </div>
 
-        {/* Replay Document Projection */}
+        {/* Replay Document Projection - with proper pl-[78px] margin line offset */}
         <div className="p-6 bg-[#090310]/60 min-h-[300px] max-h-[420px] overflow-y-auto">
-          <div className="paper-lined rounded-2xl p-6 shadow-inner text-purple-100 font-serif text-base min-h-[260px] whitespace-pre-wrap select-none border border-purple-900/40">
+          <div className={`paper-lined rounded-2xl py-6 pr-6 pl-20 sm:pl-[78px] shadow-inner text-purple-100 text-base min-h-[260px] whitespace-pre-wrap select-none border border-purple-900/40 ${fontClass}`}>
             {currentSnapshot?.text || '(Blank slate)'}
           </div>
         </div>
@@ -150,7 +162,7 @@ export const SeanceReplayModal: React.FC = () => {
             {/* Playback Speed */}
             <div className="flex items-center gap-1.5 text-xs font-mono">
               <span className="text-purple-400/80 text-[11px] mr-1">Speed:</span>
-              {[1, 2, 4].map((s) => (
+              {[1, 2, 4, 8].map((s) => (
                 <button
                   key={s}
                   type="button"

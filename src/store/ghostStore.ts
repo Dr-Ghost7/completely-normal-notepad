@@ -67,6 +67,11 @@ interface GhostState {
   setSetting: <K extends keyof EditorSettings>(key: K, value: EditorSettings[K]) => void;
   toggleModal: (modal: 'showGraveyard' | 'showSeance' | 'showExport' | 'showShare' | 'showTechInfo') => void;
 
+  // Jar actions
+  trapGhostInJar: (ghostId: string) => void;
+  releaseGhostFromJar: (ghostId: string) => void;
+  releaseAllJarGhosts: () => void;
+
   // Séance
   startSeance: () => void;
   setReplayIndex: (index: number) => void;
@@ -83,6 +88,9 @@ const DEFAULT_SETTINGS: EditorSettings = {
   volume: 0.6,
   reducedMotion: false,
   candleFlicker: true,
+  fontFamily: 'gothic',
+  themePreset: 'witching-hour',
+  showJar: true,
   showGraveyard: false,
   showSeance: false,
   showExport: false,
@@ -170,6 +178,7 @@ export const useGhostStore = create<GhostState>()(
           opacity: 0.85,
           scale: theme.baseScale,
           wobblePhase: Math.random() * Math.PI * 2,
+          isTrappedInJar: false,
           colorTheme: {
             text: theme.text,
             glow: theme.glow,
@@ -240,6 +249,7 @@ export const useGhostStore = create<GhostState>()(
             opacity: 0.9,
             scale: 0.95 + Math.random() * 0.2,
             wobblePhase: Math.random() * Math.PI * 2,
+            isTrappedInJar: false,
             colorTheme: {
               text: theme.text,
               glow: theme.glow,
@@ -420,6 +430,52 @@ export const useGhostStore = create<GhostState>()(
             ...state.settings,
             [modal]: !state.settings[modal],
           },
+        }));
+      },
+
+      trapGhostInJar: (ghostId: string) => {
+        const { soundEnabled, volume } = get().settings;
+        if (soundEnabled) {
+          ghostAudio.playGlassClink(volume);
+        }
+        set((state) => ({
+          ghosts: state.ghosts.map((g) =>
+            g.id === ghostId ? { ...g, isTrappedInJar: true } : g
+          ),
+        }));
+      },
+
+      releaseGhostFromJar: (ghostId: string) => {
+        set((state) => ({
+          ghosts: state.ghosts.map((g) =>
+            g.id === ghostId
+              ? {
+                  ...g,
+                  isTrappedInJar: false,
+                  vx: (Math.random() - 0.5) * 60,
+                  vy: (Math.random() - 0.5) * 60,
+                }
+              : g
+          ),
+        }));
+      },
+
+      releaseAllJarGhosts: () => {
+        const { soundEnabled, volume } = get().settings;
+        if (soundEnabled) {
+          ghostAudio.playSpawn('wisp', volume);
+        }
+        set((state) => ({
+          ghosts: state.ghosts.map((g) =>
+            g.isTrappedInJar
+              ? {
+                  ...g,
+                  isTrappedInJar: false,
+                  vx: (Math.random() - 0.5) * 60,
+                  vy: (Math.random() - 0.5) * 60,
+                }
+              : g
+          ),
         }));
       },
 

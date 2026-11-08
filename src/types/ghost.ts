@@ -1,4 +1,6 @@
 export type GhostType = 'wisp' | 'word' | 'sentence' | 'regret' | 'poltergeist';
+export type NotepadFont = 'gothic' | 'typewriter' | 'script' | 'modern';
+export type ThemePreset = 'witching-hour' | 'blood-moon' | 'cemetery-crypt' | 'phantom-veil';
 
 export interface Ghost {
   id: string;
@@ -21,6 +23,7 @@ export interface Ghost {
   wobblePhase: number;
   isDragging?: boolean;
   isPossessing?: boolean;
+  isTrappedInJar?: boolean;
   colorTheme: {
     text: string;
     glow: string;
@@ -63,6 +66,9 @@ export interface EditorSettings {
   volume: number;
   reducedMotion: boolean;
   candleFlicker: boolean;
+  fontFamily: NotepadFont;
+  themePreset: ThemePreset;
+  showJar: boolean;
   showGraveyard: boolean;
   showSeance: boolean;
   showExport: boolean;

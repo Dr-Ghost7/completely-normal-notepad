@@ -68,12 +68,12 @@ export function getGhostTheme(type: GhostType) {
   switch (type) {
     case 'wisp':
       return {
-        text: 'text-fuchsia-100',
-        glow: 'rgba(217, 70, 239, 0.75)',
-        border: 'border-fuchsia-400',
-        background: 'bg-purple-950/90 shadow-lg shadow-fuchsia-600/30',
-        badge: 'bg-fuchsia-950/80 text-fuchsia-300 border-fuchsia-500/40',
-        label: 'Wisp',
+        text: 'text-cyan-950 font-bold',
+        glow: 'rgba(34, 211, 238, 0.85)',
+        border: 'border-cyan-300/90',
+        background: 'bg-cyan-100/90 shadow-lg shadow-cyan-400/40 backdrop-blur-md',
+        badge: 'bg-cyan-200 text-cyan-950 border-cyan-400/60',
+        label: 'Frost Wisp',
         description: 'A fleeting typo, startled from the manuscript',
         baseScale: 0.9,
         speedMultiplier: 1.8,
@@ -82,12 +82,12 @@ export function getGhostTheme(type: GhostType) {
       };
     case 'regret':
       return {
-        text: 'text-rose-100',
-        glow: 'rgba(225, 29, 72, 0.85)',
-        border: 'border-rose-500',
-        background: 'bg-rose-950/90 shadow-xl shadow-rose-900/50',
-        badge: 'bg-rose-950/80 text-rose-300 border-rose-500/50',
-        label: 'Regret',
+        text: 'text-rose-950 font-bold',
+        glow: 'rgba(244, 63, 94, 0.85)',
+        border: 'border-rose-400/90',
+        background: 'bg-rose-100/90 shadow-xl shadow-rose-500/45 backdrop-blur-md',
+        badge: 'bg-rose-200 text-rose-950 border-rose-400/60',
+        label: 'Bleeding Regret',
         description: 'Written, stared at in silence, then bled away',
         baseScale: 1.05,
         speedMultiplier: 0.6,
@@ -96,13 +96,13 @@ export function getGhostTheme(type: GhostType) {
       };
     case 'sentence':
       return {
-        text: 'text-purple-200',
-        glow: 'rgba(147, 51, 234, 0.55)',
-        border: 'border-purple-600/60',
-        background: 'bg-[#150a24]/90 shadow-lg shadow-purple-950/40',
-        badge: 'bg-purple-950/80 text-purple-300 border-purple-500/40',
-        label: 'Sentence',
-        description: 'A heavy thought that now drifts in the shadowy void',
+        text: 'text-purple-950 font-bold',
+        glow: 'rgba(192, 132, 252, 0.75)',
+        border: 'border-purple-300/90',
+        background: 'bg-purple-100/85 shadow-lg shadow-purple-400/40 backdrop-blur-md',
+        badge: 'bg-purple-200 text-purple-950 border-purple-400/60',
+        label: 'Violet Wraith',
+        description: 'A heavy thought that now drifts across the spectral void',
         baseScale: 1.15,
         speedMultiplier: 0.4,
         dodgeCursor: false,
@@ -110,12 +110,12 @@ export function getGhostTheme(type: GhostType) {
       };
     case 'poltergeist':
       return {
-        text: 'text-red-100',
-        glow: 'rgba(239, 68, 68, 0.9)',
-        border: 'border-red-500',
-        background: 'bg-red-950/90 shadow-2xl shadow-red-900/60',
-        badge: 'bg-red-950/80 text-red-300 border-red-500/50',
-        label: 'Poltergeist',
+        text: 'text-red-950 font-black',
+        glow: 'rgba(239, 68, 68, 0.95)',
+        border: 'border-red-400/90',
+        background: 'bg-amber-100/90 shadow-2xl shadow-red-500/50 backdrop-blur-md',
+        badge: 'bg-red-200 text-red-950 border-red-400/60',
+        label: 'Infernal Poltergeist',
         description: 'Born from a total manuscript purge',
         baseScale: 1.05,
         speedMultiplier: 2.2,
@@ -125,13 +125,13 @@ export function getGhostTheme(type: GhostType) {
     case 'word':
     default:
       return {
-        text: 'text-purple-100',
-        glow: 'rgba(168, 85, 247, 0.75)',
-        border: 'border-purple-400',
-        background: 'bg-purple-950/90 shadow-xl shadow-purple-900/40',
-        badge: 'bg-purple-950/80 text-purple-300 border-purple-500/40',
-        label: 'Word',
-        description: 'A wandering soul that evades your reaching hand',
+        text: 'text-zinc-950 font-bold',
+        glow: 'rgba(255, 255, 255, 0.9)',
+        border: 'border-white/90',
+        background: 'bg-white/90 shadow-xl shadow-white/40 backdrop-blur-md',
+        badge: 'bg-white text-zinc-950 border-white/80',
+        label: 'White Sheet Ghost',
+        description: 'A classic translucent white bedsheet phantom with wandering spirit eyes',
         baseScale: 1.0,
         speedMultiplier: 0.8,
         dodgeCursor: true,

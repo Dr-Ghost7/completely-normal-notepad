@@ -11,6 +11,8 @@ import { GraveyardDrawer } from '../components/GraveyardDrawer';
 import { SeanceReplayModal } from '../components/SeanceReplayModal';
 import { ExportModal } from '../components/ExportModal';
 import { ShareModal } from '../components/ShareModal';
+import { SpiritJar } from '../components/SpiritJar';
+import { OccultCandle } from '../components/OccultCandle';
 import { Ghost } from '../types/ghost';
 import { getGhostTheme } from '../lib/ghostClassifier';
 import { Sparkles, Ghost as GhostIcon } from 'lucide-react';
@@ -90,6 +92,10 @@ export default function Home() {
         onGhostDrop={handleGhostDrop}
         setDropTargetOffset={setDropTargetOffset}
       />
+
+      {/* Atmospheric Desk Elements */}
+      <OccultCandle />
+      <SpiritJar />
 
       {/* Minimal Footer */}
       <footer className="relative z-20 py-2.5 px-6 border-t border-purple-900/30 bg-[#0a0312]/90 backdrop-blur-md text-[11px] text-purple-400/60 font-serif">
