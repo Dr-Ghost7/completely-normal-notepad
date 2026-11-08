@@ -161,7 +161,7 @@ export const GothicBooks: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="fixed left-48 sm:left-56 bottom-6 z-30 pointer-events-auto select-none flex flex-col items-center group hidden md:flex"
+      className="fixed left-72 sm:left-80 bottom-6 z-30 pointer-events-auto select-none flex flex-col items-center group hidden md:flex"
     >
       {/* Restack quick button if toppled */}
       {isToppled && (

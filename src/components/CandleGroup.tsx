@@ -81,140 +81,149 @@ export const CandleGroup: React.FC = () => {
       onClick={toggleLit}
       title={
         isLit
-          ? 'Gothic Wrought-Iron Candelabra (Click to snuff • Ghosts can blow it out!)'
+          ? 'Matte Wrought-Iron Candelabra (Click to snuff • Ghosts can blow it out!)'
           : 'Extinguished Candelabra (Click to rekindle the flames)'
       }
-      className="fixed left-5 sm:left-8 bottom-6 z-30 pointer-events-auto select-none cursor-pointer group"
-      style={{ width: '180px', height: '220px' }}
+      className="fixed left-4 sm:left-6 bottom-4 z-30 pointer-events-auto select-none cursor-pointer group"
+      style={{ width: '260px', height: '320px' }}
     >
       {/* 1. AMBIENT GLOW (Only present when lit, absolute so geometry never shifts) */}
       <div
-        className={`absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full pointer-events-none transition-opacity duration-500 blur-2xl ${
+        className={`absolute -top-14 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full pointer-events-none transition-opacity duration-500 blur-3xl ${
           isLit ? 'opacity-65' : 'opacity-0'
         }`}
         style={{
           backgroundColor: flameColor,
-          transform: `scale(${flameScale * 1.1})`,
+          transform: `scale(${flameScale * 1.15})`,
         }}
       />
 
-      {/* 2. THE THREE CANDLE FLAMES (Fixed absolute positions above each wick - NEVER causes layout shift) */}
+      {/* 2. THE THREE CANDLE FLAMES (Positioned directly over each wick - Zero layout shift) */}
       {/* Left Flame */}
       <div
-        className={`absolute top-6 left-[28px] -translate-x-1/2 flex flex-col items-center pointer-events-none transition-opacity duration-300 origin-bottom ${
+        className={`absolute -translate-x-1/2 -translate-y-full flex flex-col items-center pointer-events-none transition-opacity duration-300 origin-bottom ${
           isLit ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
-          transform: `rotate(${flameTilt * 0.9}deg) scale(${flameScale * 0.9})`,
+          left: '15.55%',
+          top: '15.9%',
+          transform: `rotate(${flameTilt * 0.9}deg) scale(${flameScale * 0.95})`,
         }}
       >
         <div
-          className="w-3 h-7 rounded-full animate-candle-flame"
+          className="w-4 h-10 rounded-full animate-candle-flame"
           style={{
             background: `radial-gradient(ellipse at 50% 80%, #ffffff 0%, #fef08a 35%, ${flameColor} 70%, transparent 100%)`,
-            boxShadow: `0 0 16px ${flameColor}`,
+            boxShadow: `0 0 20px ${flameColor}`,
           }}
         >
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-2 rounded-full bg-blue-400/80 blur-[0.5px]" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-3 rounded-full bg-blue-400/80 blur-[0.5px]" />
         </div>
       </div>
 
-      {/* Center Flame (Taller, Center of Candelabra) */}
+      {/* Center Flame (Commanding Center Pillar) */}
       <div
-        className={`absolute top-1 left-[90px] -translate-x-1/2 flex flex-col items-center pointer-events-none transition-opacity duration-300 origin-bottom ${
+        className={`absolute -translate-x-1/2 -translate-y-full flex flex-col items-center pointer-events-none transition-opacity duration-300 origin-bottom ${
           isLit ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
-          transform: `rotate(${flameTilt}deg) scale(${flameScale * 1.05})`,
+          left: '50.0%',
+          top: '5.45%',
+          transform: `rotate(${flameTilt}deg) scale(${flameScale * 1.1})`,
         }}
       >
         <div
-          className="w-4 h-9 rounded-full animate-candle-flame"
+          className="w-5 h-12 rounded-full animate-candle-flame"
           style={{
             background: `radial-gradient(ellipse at 50% 80%, #ffffff 0%, #fef08a 35%, ${flameColor} 70%, transparent 100%)`,
-            boxShadow: `0 0 22px ${flameColor}`,
+            boxShadow: `0 0 26px ${flameColor}`,
           }}
         >
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-2.5 rounded-full bg-blue-400/80 blur-[0.5px]" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-3.5 rounded-full bg-blue-400/80 blur-[0.5px]" />
         </div>
       </div>
 
       {/* Right Flame */}
       <div
-        className={`absolute top-7 left-[152px] -translate-x-1/2 flex flex-col items-center pointer-events-none transition-opacity duration-300 origin-bottom ${
+        className={`absolute -translate-x-1/2 -translate-y-full flex flex-col items-center pointer-events-none transition-opacity duration-300 origin-bottom ${
           isLit ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
-          transform: `rotate(${flameTilt * 0.85}deg) scale(${flameScale * 0.9})`,
+          left: '84.44%',
+          top: '17.27%',
+          transform: `rotate(${flameTilt * 0.85}deg) scale(${flameScale * 0.95})`,
         }}
       >
         <div
-          className="w-3 h-7 rounded-full animate-candle-flame"
+          className="w-4 h-10 rounded-full animate-candle-flame"
           style={{
             background: `radial-gradient(ellipse at 50% 80%, #ffffff 0%, #fef08a 35%, ${flameColor} 70%, transparent 100%)`,
-            boxShadow: `0 0 16px ${flameColor}`,
+            boxShadow: `0 0 20px ${flameColor}`,
           }}
         >
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-2 rounded-full bg-blue-400/80 blur-[0.5px]" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-3 rounded-full bg-blue-400/80 blur-[0.5px]" />
         </div>
       </div>
 
       {/* 3. SMOKE WISPS WHEN UNLIT (Drifting up from charred wicks) */}
       <div
-        className={`absolute top-5 left-[28px] -translate-x-1/2 pointer-events-none transition-opacity duration-500 ${
-          !isLit ? 'opacity-60' : 'opacity-0'
+        className={`absolute -translate-x-1/2 -translate-y-full pointer-events-none transition-opacity duration-500 ${
+          !isLit ? 'opacity-65' : 'opacity-0'
         }`}
+        style={{ left: '15.55%', top: '15.9%' }}
       >
-        <div className="w-1 h-3.5 bg-neutral-400/50 rounded-full animate-pulse blur-[0.5px]" />
+        <div className="w-1.5 h-5 bg-neutral-400/50 rounded-full animate-pulse blur-[0.5px]" />
       </div>
       <div
-        className={`absolute top-0 left-[90px] -translate-x-1/2 pointer-events-none transition-opacity duration-500 ${
-          !isLit ? 'opacity-70' : 'opacity-0'
+        className={`absolute -translate-x-1/2 -translate-y-full pointer-events-none transition-opacity duration-500 ${
+          !isLit ? 'opacity-75' : 'opacity-0'
         }`}
+        style={{ left: '50.0%', top: '5.45%' }}
       >
-        <div className="w-1 h-5 bg-neutral-400/60 rounded-full animate-pulse blur-[0.5px]" />
+        <div className="w-2 h-7 bg-neutral-400/60 rounded-full animate-pulse blur-[0.5px]" />
       </div>
       <div
-        className={`absolute top-6 left-[152px] -translate-x-1/2 pointer-events-none transition-opacity duration-500 ${
-          !isLit ? 'opacity-60' : 'opacity-0'
+        className={`absolute -translate-x-1/2 -translate-y-full pointer-events-none transition-opacity duration-500 ${
+          !isLit ? 'opacity-65' : 'opacity-0'
         }`}
+        style={{ left: '84.44%', top: '17.27%' }}
       >
-        <div className="w-1 h-3.5 bg-neutral-400/50 rounded-full animate-pulse blur-[0.5px]" />
+        <div className="w-1.5 h-5 bg-neutral-400/50 rounded-full animate-pulse blur-[0.5px]" />
       </div>
 
-      {/* 4. SOLID GOTHIC WROUGHT-IRON CANDELABRA & WEATHERED WAX CANDLES (100% Fixed Vector Geometry) */}
+      {/* 4. SOLID MATTE WROUGHT-IRON GOTHIC CANDELABRA (Zero shiny metal, pure dark aged iron) */}
       <svg
         viewBox="0 0 180 220"
-        className="w-full h-full filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]"
+        className="w-full h-full filter drop-shadow-[0_14px_28px_rgba(0,0,0,0.85)]"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          {/* Tarnished Wrought Iron Gradient */}
+          {/* Matte Weathered Wrought Iron (Deep, non-shiny, forged charcoal iron) */}
           <linearGradient id="ironGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#1e1b24" />
-            <stop offset="35%" stopColor="#3d3748" />
-            <stop offset="70%" stopColor="#1e1a24" />
-            <stop offset="100%" stopColor="#110d18" />
+            <stop offset="0%" stopColor="#100d14" />
+            <stop offset="30%" stopColor="#1b1722" />
+            <stop offset="60%" stopColor="#14111a" />
+            <stop offset="100%" stopColor="#0a080e" />
           </linearGradient>
 
           {/* Aged Bone Wax Gradient */}
           <linearGradient id="agedWax" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#dcd5be" />
-            <stop offset="25%" stopColor="#f3eee0" />
-            <stop offset="65%" stopColor="#e3dbcb" />
-            <stop offset="100%" stopColor="#b6ad94" />
+            <stop offset="0%" stopColor="#d5ceb7" />
+            <stop offset="25%" stopColor="#ebe4d4" />
+            <stop offset="65%" stopColor="#ded5c4" />
+            <stop offset="100%" stopColor="#aba288" />
           </linearGradient>
 
           {/* Wax Drips Highlight */}
           <linearGradient id="waxDrips" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#faf7ed" />
-            <stop offset="100%" stopColor="#c8bfa7" />
+            <stop offset="0%" stopColor="#f5f1e4" />
+            <stop offset="100%" stopColor="#bfb59b" />
           </linearGradient>
 
           {/* Iron Shadow */}
           <filter id="ironShadow" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="1" dy="2" stdDeviation="1" floodColor="#000000" floodOpacity="0.8" />
+            <feDropShadow dx="1" dy="2" stdDeviation="1.5" floodColor="#000000" floodOpacity="0.9" />
           </filter>
         </defs>
 
@@ -223,7 +232,7 @@ export const CandleGroup: React.FC = () => {
         <path
           d="M48 214 Q60 200 90 200 Q120 200 132 214 Q115 218 90 218 Q65 218 48 214 Z"
           fill="url(#ironGrad)"
-          stroke="#0b0811"
+          stroke="#07050a"
           strokeWidth="1.5"
         />
         {/* Left claw curl */}
@@ -246,16 +255,16 @@ export const CandleGroup: React.FC = () => {
         <path
           d="M78 200 L102 200 L99 188 L81 188 Z"
           fill="url(#ironGrad)"
-          stroke="#0c0912"
+          stroke="#07050a"
           strokeWidth="1.2"
         />
 
         {/* --- MAIN CENTRAL COLUMN WITH GOTHIC KNOTS --- */}
-        <rect x="85" y="90" width="10" height="100" rx="1.5" fill="url(#ironGrad)" stroke="#0c0912" strokeWidth="1" />
+        <rect x="85" y="90" width="10" height="100" rx="1.5" fill="url(#ironGrad)" stroke="#07050a" strokeWidth="1" />
         {/* Decorative iron rings on stem */}
-        <ellipse cx="90" cy="172" rx="8" ry="2.5" fill="url(#ironGrad)" stroke="#0c0912" strokeWidth="1" />
-        <ellipse cx="90" cy="142" rx="7.5" ry="2.2" fill="url(#ironGrad)" stroke="#0c0912" strokeWidth="1" />
-        <ellipse cx="90" cy="115" rx="7" ry="2" fill="url(#ironGrad)" stroke="#0c0912" strokeWidth="1" />
+        <ellipse cx="90" cy="172" rx="8" ry="2.5" fill="url(#ironGrad)" stroke="#07050a" strokeWidth="1" />
+        <ellipse cx="90" cy="142" rx="7.5" ry="2.2" fill="url(#ironGrad)" stroke="#07050a" strokeWidth="1" />
+        <ellipse cx="90" cy="115" rx="7" ry="2" fill="url(#ironGrad)" stroke="#07050a" strokeWidth="1" />
 
         {/* --- FORGED CURVING ARMS --- */}
         {/* Left Sweeping Arm */}
@@ -299,21 +308,21 @@ export const CandleGroup: React.FC = () => {
         <path
           d="M16 104 Q28 112 40 104 Q35 112 28 113 Q21 112 16 104 Z"
           fill="url(#ironGrad)"
-          stroke="#0b0811"
+          stroke="#07050a"
           strokeWidth="1.2"
         />
         {/* Center Sconce & Bobeche */}
         <path
           d="M76 88 Q90 96 104 88 Q99 96 90 97 Q81 96 76 88 Z"
           fill="url(#ironGrad)"
-          stroke="#0b0811"
+          stroke="#07050a"
           strokeWidth="1.2"
         />
         {/* Right Sconce & Bobeche */}
         <path
           d="M140 104 Q152 112 164 104 Q159 112 152 113 Q145 112 140 104 Z"
           fill="url(#ironGrad)"
-          stroke="#0b0811"
+          stroke="#07050a"
           strokeWidth="1.2"
         />
 
@@ -323,7 +332,7 @@ export const CandleGroup: React.FC = () => {
           {/* Melted Wax Overflowing into Bobeche */}
           <path d="M19 105 Q28 110 37 105 Q32 108 28 108 Q24 108 19 105 Z" fill="url(#waxDrips)" />
           {/* Candle Shaft */}
-          <rect x="21" y="44" width="14" height="61" rx="1.5" fill="url(#agedWax)" stroke="#746c57" strokeWidth="0.8" />
+          <rect x="21" y="44" width="14" height="61" rx="1.5" fill="url(#agedWax)" stroke="#5e5645" strokeWidth="0.8" />
           {/* Jagged dripping wax trails */}
           <path d="M22 46 C21 54 24 58 23 68 C22 75 25 82 24 88" stroke="url(#waxDrips)" strokeWidth="2.2" strokeLinecap="round" fill="none" />
           <path d="M33 46 C34 52 32 58 33 64" stroke="url(#waxDrips)" strokeWidth="1.8" strokeLinecap="round" fill="none" />
@@ -331,9 +340,9 @@ export const CandleGroup: React.FC = () => {
           {/* Wax Drip Teardrops */}
           <circle cx="23.5" cy="89" r="1.4" fill="#faf7ed" />
           {/* Concave melted wax top pool */}
-          <ellipse cx="28" cy="44" rx="7" ry="2" fill="#c3ba9f" stroke="#7e755f" strokeWidth="0.8" />
+          <ellipse cx="28" cy="44" rx="7" ry="2" fill="#b5ab90" stroke="#685f4b" strokeWidth="0.8" />
           {/* Charred Black Wick (NEVER disappears) */}
-          <path d="M28 44 Q29 38 28 35" stroke="#181512" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+          <path d="M28 44 Q29 38 28 35" stroke="#120f0c" strokeWidth="1.6" strokeLinecap="round" fill="none" />
           {/* Burnt wick ash tip */}
           <circle cx="28" cy="35" r="1" fill="#000000" />
         </g>
@@ -343,7 +352,7 @@ export const CandleGroup: React.FC = () => {
           {/* Melted Wax in Tray */}
           <path d="M79 89 Q90 94 101 89 Q95 93 90 93 Q85 93 79 89 Z" fill="url(#waxDrips)" />
           {/* Candle Shaft */}
-          <rect x="81" y="24" width="18" height="66" rx="2" fill="url(#agedWax)" stroke="#746c57" strokeWidth="0.8" />
+          <rect x="81" y="24" width="18" height="66" rx="2" fill="url(#agedWax)" stroke="#5e5645" strokeWidth="0.8" />
           {/* Heavy weeping wax drips */}
           <path d="M83 25 C82 35 86 42 84 56 C83 66 85 74 84 81" stroke="url(#waxDrips)" strokeWidth="2.8" strokeLinecap="round" fill="none" />
           <path d="M96 25 C97 34 94 40 96 50 C98 58 95 65 96 72" stroke="url(#waxDrips)" strokeWidth="2.5" strokeLinecap="round" fill="none" />
@@ -351,9 +360,9 @@ export const CandleGroup: React.FC = () => {
           <circle cx="84" cy="82" r="1.7" fill="#faf7ed" />
           <circle cx="96" cy="73" r="1.5" fill="#faf7ed" />
           {/* Concave melted top pool */}
-          <ellipse cx="90" cy="24" rx="9" ry="2.5" fill="#c3ba9f" stroke="#7e755f" strokeWidth="0.8" />
+          <ellipse cx="90" cy="24" rx="9" ry="2.5" fill="#b5ab90" stroke="#685f4b" strokeWidth="0.8" />
           {/* Charred Twisted Wick (NEVER disappears) */}
-          <path d="M90 24 Q89 16 90 12" stroke="#181512" strokeWidth="2" strokeLinecap="round" fill="none" />
+          <path d="M90 24 Q89 16 90 12" stroke="#120f0c" strokeWidth="2" strokeLinecap="round" fill="none" />
           <circle cx="90" cy="12" r="1.2" fill="#000000" />
         </g>
 
@@ -365,7 +374,7 @@ export const CandleGroup: React.FC = () => {
           <path
             d="M145 50 Q146 75 145 105 L159 105 Q160 75 159 50 Z"
             fill="url(#agedWax)"
-            stroke="#746c57"
+            stroke="#5e5645"
             strokeWidth="0.8"
           />
           {/* Wax drips */}
@@ -373,12 +382,13 @@ export const CandleGroup: React.FC = () => {
           <path d="M157 52 C158 62 155 70 157 80" stroke="url(#waxDrips)" strokeWidth="2" strokeLinecap="round" fill="none" />
           <circle cx="147" cy="97" r="1.4" fill="#faf7ed" />
           {/* Concave top pool */}
-          <ellipse cx="152" cy="50" rx="7" ry="2" fill="#c3ba9f" stroke="#7e755f" strokeWidth="0.8" />
+          <ellipse cx="152" cy="50" rx="7" ry="2" fill="#b5ab90" stroke="#685f4b" strokeWidth="0.8" />
           {/* Charred Wick (NEVER disappears) */}
-          <path d="M152 50 Q153 42 152 38" stroke="#181512" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+          <path d="M152 50 Q153 42 152 38" stroke="#120f0c" strokeWidth="1.6" strokeLinecap="round" fill="none" />
           <circle cx="152" cy="38" r="1" fill="#000000" />
         </g>
       </svg>
     </div>
   );
 };
+
