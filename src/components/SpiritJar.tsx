@@ -88,7 +88,7 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
                 releaseAllJarGhosts();
                 if (soundEnabled) ghostAudio.playGlassClink(volume);
               }}
-              className="absolute -top-3.5 px-2.5 py-0.5 rounded-full bg-amber-900/95 hover:bg-rose-900 text-amber-200 border border-amber-500/70 shadow-xl cursor-pointer transition-all flex items-center gap-1 text-[10px] font-mono animate-bounce"
+              className="absolute -top-3 px-2.5 py-0.5 rounded-md bg-stone-900/95 hover:bg-stone-800 text-amber-200 border border-amber-600/70 shadow-lg cursor-pointer transition-colors flex items-center gap-1 text-[10px] font-mono"
               title="Uncork jar & release all trapped spirits"
             >
               <Unlock className="w-3 h-3 text-amber-300" />
@@ -97,8 +97,54 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
           )}
         </div>
 
-        {/* Jar Neck Ring */}
-        <div className="mx-auto w-32 h-3 bg-white/10 border-x-2 border-t border-white/30 rounded-t-xl backdrop-blur-sm shadow-inner" />
+        {/* Jar Neck Ring with Twine String Wrap */}
+        <div className="mx-auto w-32 h-3.5 bg-white/10 border-x-2 border-t border-white/30 rounded-t-xl backdrop-blur-sm shadow-inner relative flex items-center justify-center">
+          {/* Hemp Twine Cord Wrapped Around Neck */}
+          <div className="absolute inset-x-2 h-1 bg-[#7d5631] border-y border-[#4a2e15] rounded-full shadow-sm" />
+          {/* Twine Knot */}
+          <div className="absolute left-6 w-2.5 h-2.5 rounded-full bg-[#6d4624] border border-[#3e2410] -top-0.5 shadow-sm" />
+        </div>
+
+        {/* ========================================================
+            HORROR SCENE PARCHMENT SPECIMEN TAG WITH TWINE STRING
+            "like some horror scenes does it, put a label or something on a jar with a string"
+            ======================================================== */}
+        <div className="absolute left-5 top-7 z-30 pointer-events-auto select-none transition-transform duration-300 origin-top-left hover:rotate-[-3deg] -rotate-6">
+          {/* Hanging Twine String from Neck to Tag */}
+          <div className="w-0.5 h-5 bg-[#7d5631] ml-4 -mb-1 shadow-sm" />
+
+          {/* The Aged Weathered Paper Tag */}
+          <div className="relative w-28 bg-[#d8c59d] border border-[#a48c60] shadow-2xl rounded-sm p-1.5 flex flex-col items-center">
+            {/* Dark Brass Eyelet Hole at Tag Top */}
+            <div className="w-2.5 h-2.5 rounded-full bg-[#3d2e1a] border border-[#a48c60] -mt-1 mb-1 flex items-center justify-center">
+              <div className="w-1 h-1 rounded-full bg-[#d8c59d]" />
+            </div>
+
+            {/* Warning Header */}
+            <div className="text-[8.5px] font-mono font-black text-[#881818] tracking-widest uppercase border-b border-[#a48c60]/60 pb-0.5 w-full text-center">
+              ☠ DO NOT OPEN ☠
+            </div>
+
+            {/* Handwritten / Typewriter Specimen Text */}
+            <div className="my-1 text-center">
+              <div className="text-[9px] font-serif font-bold text-stone-900 leading-tight">
+                Containment Vessel
+              </div>
+              <div className="text-[7.5px] font-mono text-stone-700/80 uppercase tracking-tighter">
+                Ref: Occult-404
+              </div>
+            </div>
+
+            {/* Dynamic Stamped Seal Status */}
+            <div className="w-full bg-[#c9b489] rounded-[2px] py-0.5 px-1 border border-[#9d8355] text-center">
+              <span className="text-[8px] font-mono font-bold tracking-tight text-[#701515] uppercase">
+                {trappedGhosts.length > 0
+                  ? `Sealed: ${trappedGhosts.length} Spirit${trappedGhosts.length > 1 ? 's' : ''}`
+                  : 'Empty Vessel'}
+              </span>
+            </div>
+          </div>
+        </div>
 
         {/* Clear Glass Chamber with Visible Floating Ghosts */}
         <div
