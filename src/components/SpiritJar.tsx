@@ -164,11 +164,7 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
 
           {/* VISIBLE FLOATING GHOSTS INSIDE THE JAR */}
           <div className="relative w-full h-full">
-            {trappedGhosts.length === 0 ? (
-              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-30 group-hover:opacity-60 transition-opacity">
-                <span className="text-3xl filter drop-shadow">👻</span>
-              </div>
-            ) : (
+            {trappedGhosts.length > 0 && (
               <>
                 {/* 1. UPPER & MIDDLE SECTION: Happy / Mischievous Ghosts Floating High */}
                 {happyGhosts.map((ghost, idx) => {
