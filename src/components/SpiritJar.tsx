@@ -102,47 +102,38 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
           {/* Hemp Twine Cord Wrapped Around Neck */}
           <div className="absolute inset-x-2 h-1 bg-[#7d5631] border-y border-[#4a2e15] rounded-full shadow-sm" />
           {/* Twine Knot */}
-          <div className="absolute left-6 w-2.5 h-2.5 rounded-full bg-[#6d4624] border border-[#3e2410] -top-0.5 shadow-sm" />
+          <div className="absolute left-7 w-2.5 h-2.5 rounded-full bg-[#6d4624] border border-[#3e2410] -top-0.5 shadow-sm" />
         </div>
 
         {/* ========================================================
-            HORROR SCENE PARCHMENT SPECIMEN TAG WITH TWINE STRING
-            "like some horror scenes does it, put a label or something on a jar with a string"
+            SMALL RUSTIC HORROR SPECIMEN TAG
+            "something simple, one-two words"
             ======================================================== */}
-        <div className="absolute left-5 top-7 z-30 pointer-events-auto select-none transition-transform duration-300 origin-top-left hover:rotate-[-3deg] -rotate-6">
-          {/* Hanging Twine String from Neck to Tag */}
-          <div className="w-0.5 h-5 bg-[#7d5631] ml-4 -mb-1 shadow-sm" />
+        <div className="absolute left-6 top-3 z-30 pointer-events-auto select-none transition-transform duration-300 origin-top-left hover:rotate-[-3deg] -rotate-6">
+          {/* Natural Twine String Loop from Neck into Tag Eyelet */}
+          <svg width="24" height="18" viewBox="0 0 24 18" className="overflow-visible block ml-6">
+            <path
+              d="M 6 0 Q 7 8, 12 16 Q 16 8, 17 0"
+              stroke="#8c6138"
+              strokeWidth="1.6"
+              fill="none"
+              strokeLinecap="round"
+            />
+            {/* Knot at Eyelet */}
+            <circle cx="12" cy="16" r="1.8" fill="#5c3a1c" />
+          </svg>
 
-          {/* The Aged Weathered Paper Tag */}
-          <div className="relative w-28 bg-[#d8c59d] border border-[#a48c60] shadow-2xl rounded-sm p-1.5 flex flex-col items-center">
-            {/* Dark Brass Eyelet Hole at Tag Top */}
-            <div className="w-2.5 h-2.5 rounded-full bg-[#3d2e1a] border border-[#a48c60] -mt-1 mb-1 flex items-center justify-center">
-              <div className="w-1 h-1 rounded-full bg-[#d8c59d]" />
+          {/* Simple Small Weathered Tag */}
+          <div className="relative w-[76px] -mt-0.5 bg-[#dfd4b8] border border-[#a69168] shadow-lg rounded-[2px] py-1.5 px-1.5 flex flex-col items-center">
+            {/* Tag Eyelet Hole */}
+            <div className="w-2 h-2 rounded-full bg-[#3d2e1b] border border-[#a69168] -mt-2 mb-1 flex items-center justify-center">
+              <div className="w-0.5 h-0.5 rounded-full bg-[#dfd4b8]" />
             </div>
 
-            {/* Warning Header */}
-            <div className="text-[8.5px] font-mono font-black text-[#881818] tracking-widest uppercase border-b border-[#a48c60]/60 pb-0.5 w-full text-center">
-              ☠ DO NOT OPEN ☠
-            </div>
-
-            {/* Handwritten / Typewriter Specimen Text */}
-            <div className="my-1 text-center">
-              <div className="text-[9px] font-serif font-bold text-stone-900 leading-tight">
-                Containment Vessel
-              </div>
-              <div className="text-[7.5px] font-mono text-stone-700/80 uppercase tracking-tighter">
-                Ref: Occult-404
-              </div>
-            </div>
-
-            {/* Dynamic Stamped Seal Status */}
-            <div className="w-full bg-[#c9b489] rounded-[2px] py-0.5 px-1 border border-[#9d8355] text-center">
-              <span className="text-[8px] font-mono font-bold tracking-tight text-[#701515] uppercase">
-                {trappedGhosts.length > 0
-                  ? `Sealed: ${trappedGhosts.length} Spirit${trappedGhosts.length > 1 ? 's' : ''}`
-                  : 'Empty Vessel'}
-              </span>
-            </div>
+            {/* Simple 2 Words */}
+            <span className="text-[9.5px] font-mono font-black text-[#851818] tracking-wider uppercase text-center select-none leading-none">
+              DON&apos;T OPEN
+            </span>
           </div>
         </div>
 
