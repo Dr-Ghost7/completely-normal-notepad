@@ -49,28 +49,7 @@ export const GraveyardBackground: React.FC = () => {
       aria-hidden="true"
       className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none"
     >
-      {/* 1. LUNAR SKY & OCCULT FULL MOON */}
-      <div className="absolute top-6 right-8 sm:right-24 md:right-36 w-40 h-40 sm:w-56 sm:h-56 pointer-events-none">
-        {/* Deep Moon Glow Halo */}
-        <div
-          className="absolute inset-0 rounded-full blur-3xl transition-all duration-700"
-          style={{ backgroundColor: themeConfig.moonGlow }}
-        />
-
-        {/* The Moon Sphere with Crater Details */}
-        <div
-          className="relative w-full h-full rounded-full shadow-[0_0_60px_rgba(255,255,255,0.15)] opacity-85 transition-all duration-700 overflow-hidden"
-          style={{ background: themeConfig.moonCore }}
-        >
-          {/* Craters */}
-          <div className="absolute top-8 left-10 w-8 h-8 rounded-full bg-black/15 blur-[1px]" />
-          <div className="absolute top-14 left-24 w-12 h-10 rounded-full bg-black/10 blur-[1px]" />
-          <div className="absolute bottom-10 left-16 w-14 h-12 rounded-full bg-black/20 blur-[1px]" />
-          <div className="absolute top-24 right-10 w-7 h-7 rounded-full bg-black/15 blur-[0.5px]" />
-        </div>
-      </div>
-
-      {/* 2. DISTANT ROLLING CEMETERY HILLS & SILHOUETTE TOMBSTONES */}
+      {/* DISTANT ROLLING CEMETERY HILLS & SILHOUETTE TOMBSTONES */}
       <div className="absolute bottom-0 left-0 right-0 h-64 sm:h-80 w-full opacity-65 transition-opacity duration-700">
         <svg
           viewBox="0 0 1440 320"

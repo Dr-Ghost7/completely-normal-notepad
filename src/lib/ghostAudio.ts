@@ -366,6 +366,113 @@ class GhostSoundEngine {
     osc.start(now);
     osc.stop(now + 0.16);
   }
+
+  /**
+   * Deep thud when books are knocked over.
+   */
+  public playBookThud(volume = 0.5) {
+    const ctx = this.initContext();
+    if (!ctx) return;
+
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(120, now);
+    osc.frequency.exponentialRampToValueAtTime(45, now + 0.2);
+
+    gain.gain.setValueAtTime(0.01, now);
+    gain.gain.linearRampToValueAtTime(volume * 0.4, now + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.28);
+  }
+
+  /**
+   * Sound when plate or glass breaks.
+   */
+  public playGlassShatter(volume = 0.5) {
+    const ctx = this.initContext();
+    if (!ctx) return;
+
+    const now = ctx.currentTime;
+    [1800, 2400, 3200].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(freq, now + i * 0.02);
+      osc.frequency.exponentialRampToValueAtTime(freq * 0.4, now + i * 0.02 + 0.15);
+
+      gain.gain.setValueAtTime(volume * 0.2, now + i * 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.02 + 0.18);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now + i * 0.02);
+      osc.stop(now + i * 0.02 + 0.2);
+    });
+  }
+
+  /**
+   * Magical chime when broken items or books are restored.
+   */
+  public playMendChime(volume = 0.5) {
+    const ctx = this.initContext();
+    if (!ctx) return;
+
+    const now = ctx.currentTime;
+    [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, now + idx * 0.06);
+
+      gain.gain.setValueAtTime(0.01, now + idx * 0.06);
+      gain.gain.linearRampToValueAtTime(volume * 0.25, now + idx * 0.06 + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.4);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now + idx * 0.06);
+      osc.stop(now + idx * 0.06 + 0.45);
+    });
+  }
+
+  /**
+   * Soft breath whoosh when a candle is snuffed by a passing ghost.
+   */
+  public playBlowOut(volume = 0.4) {
+    const ctx = this.initContext();
+    if (!ctx) return;
+
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const filter = ctx.createBiquadFilter();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(320, now);
+    osc.frequency.exponentialRampToValueAtTime(90, now + 0.2);
+
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(450, now);
+
+    gain.gain.setValueAtTime(0.01, now);
+    gain.gain.linearRampToValueAtTime(volume * 0.3, now + 0.03);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.26);
+  }
 }
 
 export const ghostAudio = new GhostSoundEngine();

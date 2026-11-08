@@ -13,7 +13,9 @@ import { SeanceReplayModal } from '../components/SeanceReplayModal';
 import { ExportModal } from '../components/ExportModal';
 import { ShareModal } from '../components/ShareModal';
 import { SpiritJar } from '../components/SpiritJar';
-import { DeskAccents } from '../components/DeskAccents';
+import { CandleGroup } from '../components/CandleGroup';
+import { GothicBooks } from '../components/GothicBooks';
+import { BreakableArtifact } from '../components/BreakableArtifact';
 import { Ghost } from '../types/ghost';
 import { getGhostTheme } from '../lib/ghostClassifier';
 import { Sparkles, Ghost as GhostIcon } from 'lucide-react';
@@ -97,8 +99,10 @@ export default function Home() {
         setDropTargetOffset={setDropTargetOffset}
       />
 
-      {/* Atmospheric Desk Elements */}
-      <DeskAccents />
+      {/* Scattered Interactive Desk Accents */}
+      <CandleGroup />
+      <GothicBooks />
+      <BreakableArtifact />
       <SpiritJar />
 
       {/* Minimal Footer */}

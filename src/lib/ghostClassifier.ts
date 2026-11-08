@@ -76,7 +76,7 @@ export function getGhostTheme(type: GhostType) {
         label: 'Frost Wisp',
         description: 'A fleeting typo, startled from the manuscript',
         baseScale: 0.9,
-        speedMultiplier: 1.8,
+        speedMultiplier: 0.7,
         dodgeCursor: false,
         zIndex: 40,
       };
@@ -90,7 +90,7 @@ export function getGhostTheme(type: GhostType) {
         label: 'Bleeding Regret',
         description: 'Written, stared at in silence, then bled away',
         baseScale: 1.05,
-        speedMultiplier: 0.6,
+        speedMultiplier: 0.35,
         dodgeCursor: false,
         zIndex: 50,
       };
@@ -104,7 +104,7 @@ export function getGhostTheme(type: GhostType) {
         label: 'Violet Wraith',
         description: 'A heavy thought that now drifts across the spectral void',
         baseScale: 1.15,
-        speedMultiplier: 0.4,
+        speedMultiplier: 0.25,
         dodgeCursor: false,
         zIndex: 25,
       };
@@ -118,8 +118,8 @@ export function getGhostTheme(type: GhostType) {
         label: 'Infernal Poltergeist',
         description: 'Born from a total manuscript purge',
         baseScale: 1.05,
-        speedMultiplier: 2.2,
-        dodgeCursor: true,
+        speedMultiplier: 0.8,
+        dodgeCursor: false,
         zIndex: 45,
       };
     case 'word':
@@ -133,8 +133,8 @@ export function getGhostTheme(type: GhostType) {
         label: 'White Sheet Ghost',
         description: 'A classic translucent white bedsheet phantom with wandering spirit eyes',
         baseScale: 1.0,
-        speedMultiplier: 0.8,
-        dodgeCursor: true,
+        speedMultiplier: 0.4,
+        dodgeCursor: false,
         zIndex: 35,
       };
   }

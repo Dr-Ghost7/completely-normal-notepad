@@ -188,67 +188,56 @@ export const GhostLayer: React.FC<GhostLayerProps> = ({
           return { ...ghost, x, y, vx, vy, wobblePhase, scale, opacity };
         }
 
-        // 2. TRUE 2D WANDERING (No helium upward buoyancy!)
+        // 2. TRUE 2D WANDERING (Gentle, graceful, easy to catch!)
         const seed = (ghost.createdAt % 1000) * 0.01;
 
         if (ghost.type === 'wisp') {
-          // Twitchy, rapid gnat jitter
-          vx += (Math.random() - 0.5) * 80 * dt;
-          vy += (Math.random() - 0.5) * 80 * dt;
-          vx *= 0.95;
-          vy *= 0.95;
+          // Light twitchy spark
+          vx += (Math.random() - 0.5) * 28 * dt;
+          vy += (Math.random() - 0.5) * 28 * dt;
+          vx *= 0.94;
+          vy *= 0.94;
         } else if (ghost.type === 'regret') {
           // Anchored spring force back to exact coordinate where it was deleted
           const anchorDx = ghost.originX - x;
           const anchorDy = ghost.originY - y;
-          const springK = 0.7;
+          const springK = 0.5;
           vx += anchorDx * springK * dt;
           vy += anchorDy * springK * dt;
 
-          // Sinusoidal mournful hover
-          vx += Math.sin(wobblePhase) * 8 * dt;
-          vy += Math.cos(wobblePhase * 0.8) * 8 * dt;
+          vx += Math.sin(wobblePhase * 0.5) * 4 * dt;
+          vy += Math.cos(wobblePhase * 0.4) * 4 * dt;
 
           vx *= 0.92;
           vy *= 0.92;
         } else if (ghost.type === 'sentence') {
           // Broad, oceanic drift across screen
-          vx += Math.cos(wobblePhase * 0.4 + seed) * 14 * dt;
-          vy += Math.sin(wobblePhase * 0.35 + seed * 1.3) * 14 * dt;
+          vx += Math.cos(wobblePhase * 0.3 + seed) * 6 * dt;
+          vy += Math.sin(wobblePhase * 0.25 + seed * 1.3) * 6 * dt;
           vx *= 0.97;
           vy *= 0.97;
         } else {
-          // Word ghost / Poltergeist: Lissajous curve wandering freely in 2D
-          vx += Math.sin(wobblePhase * 0.7 + seed) * 22 * dt;
-          vy += Math.cos(wobblePhase * 0.6 + seed * 1.5) * 22 * dt;
-          vx *= 0.96;
-          vy *= 0.96;
+          // Word ghost / Poltergeist: Slow, graceful float
+          vx += Math.sin(wobblePhase * 0.45 + seed) * 9 * dt;
+          vy += Math.cos(wobblePhase * 0.4 + seed * 1.5) * 9 * dt;
+          vx *= 0.95;
+          vy *= 0.95;
         }
 
-        // 3. PLAYFUL CURSOR INTERACTION (Easy to catch!)
+        // 3. CURSOR ATTRACTION / SLOWDOWN (Effortlessly Catchable!)
         const mdx = x - mouse.x;
         const mdy = y - mouse.y;
         const mDist = Math.hypot(mdx, mdy);
 
-        // A) Gentle Playful Evasion: Only dodges at a distance; once you get close (< 50px),
-        // it surrenders and lets you grab it easily!
-        if (ghost.type === 'word' || ghost.type === 'poltergeist') {
-          const avoidanceRadius = 70;
-          // If cursor is within avoidance zone but NOT right on top of it, do a gentle dodge
-          if (mDist < avoidanceRadius && mDist > 45) {
-            const evadeStrength = (1 - mDist / avoidanceRadius) * 60;
-            vx += (mdx / mDist) * evadeStrength * dt;
-            vy += (mdy / mDist) * evadeStrength * dt;
-
-            if (soundEnabled && Math.random() < 0.02) {
-              ghostAudio.playDodge(volume);
-            }
-          }
+        // When cursor approaches within 90px, the ghost slows down into your grasp
+        if (mDist < 90) {
+          vx *= 0.82;
+          vy *= 0.82;
         }
 
         // B) Cursor Aerodynamic Wind Wake: Only very fast swipes create a light breeze
         if (mouseSpeed > 600 && mDist < 120 && mDist > 0) {
-          const windFactor = (1 - mDist / 120) * 0.025;
+          const windFactor = (1 - mDist / 120) * 0.02;
           vx += mouseVel.vx * windFactor;
           vy += mouseVel.vy * windFactor;
         }
@@ -340,13 +329,32 @@ export const GhostLayer: React.FC<GhostLayerProps> = ({
     const currentX = e.clientX - dragOffsetRef.current.x;
     const currentY = e.clientY - dragOffsetRef.current.y;
 
-    // Check if dragging over the notepad editor
-    const editorEl = document.querySelector('[contenteditable="true"]') as HTMLElement | null;
-    if (editorEl) {
-      const offset = getCaretOffsetFromPoint(e.clientX, e.clientY, editorEl);
-      setDropTargetOffset(offset);
-    } else {
+    // Check if dragging near Punishment Jar
+    const jarEl = document.querySelector('[aria-label="Spirit Punishment Jar"]') as HTMLElement | null;
+    const jarRect = jarEl?.getBoundingClientRect() || (window as unknown as { spiritJarRect?: DOMRect }).spiritJarRect;
+    const isOverJar = jarRect &&
+      e.clientX >= jarRect.left - 45 &&
+      e.clientX <= jarRect.right + 45 &&
+      e.clientY >= jarRect.top - 45 &&
+      e.clientY <= jarRect.bottom + 45;
+
+    window.dispatchEvent(
+      new CustomEvent('ghost-drag-move', {
+        detail: { x: e.clientX, y: e.clientY, isDragging: true },
+      })
+    );
+
+    if (isOverJar) {
       setDropTargetOffset(null);
+    } else {
+      // Check if dragging over the notepad editor
+      const editorEl = document.querySelector('[contenteditable="true"]') as HTMLElement | null;
+      if (editorEl) {
+        const offset = getCaretOffsetFromPoint(e.clientX, e.clientY, editorEl);
+        setDropTargetOffset(offset);
+      } else {
+        setDropTargetOffset(null);
+      }
     }
 
     // Update dragging ghost position directly
@@ -374,15 +382,21 @@ export const GhostLayer: React.FC<GhostLayerProps> = ({
     setDraggingGhost(null);
     setDropTargetOffset(null);
 
+    window.dispatchEvent(
+      new CustomEvent('ghost-drag-move', {
+        detail: { x: e.clientX, y: e.clientY, isDragging: false },
+      })
+    );
+
     // 1. Check if dropped over the Punishment Spirit Jar!
     const jarEl = document.querySelector('[aria-label="Spirit Punishment Jar"]') as HTMLElement | null;
-    if (jarEl) {
-      const jarRect = jarEl.getBoundingClientRect();
+    const jarRect = jarEl?.getBoundingClientRect() || (window as unknown as { spiritJarRect?: DOMRect }).spiritJarRect;
+    if (jarRect) {
       if (
-        e.clientX >= jarRect.left - 20 &&
-        e.clientX <= jarRect.right + 20 &&
-        e.clientY >= jarRect.top - 20 &&
-        e.clientY <= jarRect.bottom + 20
+        e.clientX >= jarRect.left - 45 &&
+        e.clientX <= jarRect.right + 45 &&
+        e.clientY >= jarRect.top - 45 &&
+        e.clientY <= jarRect.bottom + 45
       ) {
         trapGhostInJar(draggedId);
         return;

@@ -35,14 +35,14 @@ export const SeanceReplayModal: React.FC = () => {
 
   const currentSnapshot = snapshots[replayIndex] || snapshots[snapshots.length - 1];
 
-  // Auto-playback loop (peppy and responsive: 1x = 260ms, 2x = 130ms, 4x = 65ms, 8x = 32ms)
+  // Auto-playback loop (comfortably paced: 1x = 550ms, 2x = 275ms, 4x = 138ms, 8x = 68ms)
   useEffect(() => {
     if (!isPlaying) {
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
 
-    const intervalMs = Math.max(25, Math.round(260 / speed));
+    const intervalMs = Math.max(40, Math.round(550 / speed));
 
     timerRef.current = setInterval(() => {
       setReplayIndex(

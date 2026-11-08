@@ -62,6 +62,18 @@ body {
   transition: background-color 0.4s ease;
 }
 
+/* Hide Next.js Development Badge ('N' circle) */
+nextjs-portal,
+[data-nextjs-dev-tools],
+[data-next-badge],
+div[class*="nextjs-toast"],
+div[data-nextjs-toast] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
 /* Custom Haunted Typography Classes */
 .font-gothic {
   font-family: 'Cinzel', Georgia, serif;
