@@ -3,45 +3,29 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useGhostStore } from '../store/ghostStore';
 import { ghostAudio } from '../lib/ghostAudio';
-import { Sparkles, Wand2 } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
 
-interface ArtifactVariant {
+interface DishVariant {
   id: string;
   name: string;
-  type: 'plate' | 'goblet' | 'mirror';
-  color: string;
-  glow: string;
-  border: string;
-  shardColors: string[];
+  type: 'plate' | 'glass' | 'mug';
 }
 
-const VARIANTS: ArtifactVariant[] = [
+const VARIANTS: DishVariant[] = [
   {
-    id: 'kintsugi-plate',
-    name: 'Celestial Porcelain Plate',
+    id: 'ceramic-plate',
+    name: 'Ceramic Dinner Plate',
     type: 'plate',
-    color: 'bg-gradient-to-br from-stone-100 via-purple-100 to-amber-50',
-    glow: 'rgba(251, 191, 36, 0.4)',
-    border: 'border-amber-400/80',
-    shardColors: ['#f8fafc', '#fef08a', '#f1f5f9', '#fed7aa', '#e2e8f0'],
   },
   {
-    id: 'alchemist-goblet',
-    name: 'Emerald Alchemist Chalice',
-    type: 'goblet',
-    color: 'bg-gradient-to-b from-emerald-400/20 via-emerald-600/40 to-teal-950/80',
-    glow: 'rgba(52, 211, 153, 0.5)',
-    border: 'border-emerald-400/90',
-    shardColors: ['#34d399', '#059669', '#10b981', '#065f46', '#022c22'],
+    id: 'drinking-glass',
+    name: 'Clear Drinking Glass',
+    type: 'glass',
   },
   {
-    id: 'obsidian-mirror',
-    name: 'Obsidian Scrying Dish',
-    type: 'mirror',
-    color: 'bg-gradient-to-tr from-black via-purple-950 to-neutral-900',
-    glow: 'rgba(192, 132, 252, 0.5)',
-    border: 'border-purple-500/80',
-    shardColors: ['#1e1b4b', '#3b0764', '#0f172a', '#2e1065', '#020617'],
+    id: 'coffee-mug',
+    name: 'Stoneware Coffee Mug',
+    type: 'mug',
   },
 ];
 
@@ -73,8 +57,7 @@ export const DishShelf: React.FC = () => {
       const dy = ghost.y - centerY;
       const dist = Math.hypot(dx, dy);
 
-      // Collision trigger (enlarged hit radius for bigger dishes)
-      if (dist < 110) {
+      if (dist < 105) {
         setIsBroken(true);
         if (soundEnabled) ghostAudio.playGlassShatter(volume);
         break;
@@ -100,147 +83,144 @@ export const DishShelf: React.FC = () => {
     <aside
       ref={containerRef}
       aria-label="Wall Shelf with Dishes"
-      className="fixed left-4 sm:left-6 lg:left-10 top-18 sm:top-22 z-20 pointer-events-auto select-none hidden lg:flex flex-col items-center"
-      style={{ width: '300px' }}
+      className="fixed left-4 sm:left-6 lg:left-10 top-20 z-20 pointer-events-auto select-none hidden lg:block"
+      style={{ width: '300px', height: '220px' }}
     >
-      {/* Restoring Mend Button (Floats right above dish when broken) */}
+      {/* ========================================================
+          SUBDUED RESTORE BUTTON (Absolute positioning: ZERO layout shift)
+          Clean, quiet, minimal — no bouncing, no neon gradients.
+          ======================================================== */}
       {isBroken && (
         <button
           type="button"
           onClick={handleRestore}
-          className="mb-2 px-3 py-1 rounded-full bg-gradient-to-r from-amber-700 via-rose-700 to-purple-800 text-white font-serif text-xs font-semibold shadow-2xl border border-amber-400 cursor-pointer flex items-center gap-1.5 animate-bounce hover:scale-105 transition-transform"
-          title="Mend dish with mystical golden kintsugi"
+          className="absolute top-2 left-1/2 -translate-x-1/2 z-30 px-2.5 py-1 rounded-md bg-stone-900/95 hover:bg-stone-800 text-stone-300 hover:text-white border border-stone-700 text-[11px] font-sans shadow-md flex items-center gap-1.5 transition-colors cursor-pointer"
+          title="Restore dish onto shelf"
         >
-          <Wand2 className="w-3.5 h-3.5 text-amber-300" />
-          <span>Mend ({repairCount > 0 ? `Restored ×${repairCount}` : 'Restore'})</span>
+          <RotateCcw className="w-3 h-3 text-stone-400" />
+          <span>Replace Dish</span>
         </button>
       )}
 
       {/* ========================================================
-          ENLARGED DISH / CHALICE / OBJECT
-          Rests firmly on top of the solid black shelf plank
+          NORMAL, GROUNDED EVERYDAY DISHES
+          Anchored directly onto the top of the shelf plank (bottom: 80px)
           ======================================================== */}
       <div
         ref={itemRef}
         onClick={handleManualBreak}
-        title={isBroken ? 'Shattered artifact on black shelf' : `${current.name} (Click to break or ghosts may shatter it!)`}
-        className="relative cursor-pointer transition-transform hover:scale-102 flex flex-col items-center justify-end"
-        style={{ minHeight: '144px' }}
+        title={isBroken ? 'Broken dish on shelf (Click Replace above)' : `${current.name} (Click to break or ghosts may knock it!)`}
+        className="absolute left-1/2 -translate-x-1/2 bottom-[80px] z-10 cursor-pointer flex flex-col items-center justify-end"
+        style={{ width: '160px', height: '136px' }}
       >
         {!isBroken ? (
-          /* Intact State */
-          <div className="relative flex flex-col items-center">
-            {/* 1. Large Celestial Porcelain Plate */}
+          /* Intact Normal Household Tableware */
+          <div className="relative flex flex-col items-center justify-end h-full">
+            {/* 1. Classic Ceramic Dinner Plate */}
             {current.type === 'plate' && (
               <div className="relative flex flex-col items-center">
-                {/* Black Display Easel Stand Behind Plate */}
-                <div className="absolute -bottom-1 w-18 h-7 bg-black rounded-t-sm z-0" />
-                <div
-                  className={`w-32 h-32 sm:w-34 sm:h-34 rounded-full border-3 ${current.border} ${current.color} shadow-2xl relative overflow-hidden flex items-center justify-center z-10`}
-                  style={{ boxShadow: `0 8px 24px ${current.glow}` }}
-                >
-                  {/* Decorative crackle ring */}
-                  <div className="w-22 h-22 rounded-full border border-purple-400/40 bg-black/10 flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-amber-400/80 animate-pulse" />
-                  </div>
-                  {/* Gold rim accent lines */}
-                  <div className="absolute inset-1.5 rounded-full border border-amber-300/40 pointer-events-none" />
+                {/* Minimalist wire plate stand behind */}
+                <div className="absolute -bottom-1 w-12 h-6 border-b-2 border-x-2 border-stone-900 rounded-b-sm z-0" />
+                {/* Ceramic Plate */}
+                <div className="w-28 h-28 sm:w-30 sm:h-30 rounded-full bg-[#f1ece1] border-2 border-[#d5cebf] shadow-md relative flex items-center justify-center z-10">
+                  {/* Subtle painted ceramic rim groove */}
+                  <div className="w-24 h-24 sm:w-26 sm:h-26 rounded-full border border-[#4a3f35]/30 bg-[#ece7dc]" />
+                  {/* Center indentation */}
+                  <div className="absolute w-16 h-16 rounded-full border border-[#cfc8b8] bg-[#f4efe5]" />
                 </div>
               </div>
             )}
 
-            {/* 2. Large Emerald Alchemist Chalice */}
-            {current.type === 'goblet' && (
-              <div className="flex flex-col items-center z-10">
-                {/* Goblet Cup */}
-                <div
-                  className={`w-20 h-22 rounded-b-3xl border-3 ${current.border} ${current.color} shadow-2xl relative overflow-hidden flex items-center justify-center`}
-                  style={{ boxShadow: `0 8px 24px ${current.glow}` }}
-                >
-                  <div className="w-12 h-12 rounded-full bg-emerald-400/35 blur-[3px]" />
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-8 h-2 rounded-full bg-emerald-300/50 blur-[1px]" />
+            {/* 2. Normal Clear Drinking Glass / Bistro Tumbler */}
+            {current.type === 'glass' && (
+              <div className="relative flex flex-col items-center">
+                {/* Glass Tumbler Body */}
+                <div className="w-16 h-24 rounded-b-lg border-2 border-white/30 bg-gradient-to-b from-white/10 via-white/5 to-white/15 backdrop-blur-[1px] shadow-sm relative flex flex-col justify-between overflow-hidden">
+                  {/* Top glass rim highlight */}
+                  <div className="w-full h-1 bg-white/30" />
+                  {/* Vertical fluted glass facets */}
+                  <div className="flex justify-evenly h-full opacity-25 py-1">
+                    <div className="w-0.5 h-full bg-white/40" />
+                    <div className="w-0.5 h-full bg-white/40" />
+                    <div className="w-0.5 h-full bg-white/40" />
+                  </div>
+                  {/* Heavy thick glass base */}
+                  <div className="w-full h-3 bg-white/20 border-t border-white/20" />
                 </div>
-                {/* Thick Solid Black Stem */}
-                <div className="w-4 h-8 bg-black border-x border-neutral-900" />
-                {/* Heavy Solid Black Base */}
-                <div className="w-18 h-3.5 rounded-full bg-black border border-neutral-900" />
               </div>
             )}
 
-            {/* 3. Large Obsidian Scrying Dish */}
-            {current.type === 'mirror' && (
-              <div className="relative flex flex-col items-center z-10">
-                <div className="absolute -bottom-1 w-18 h-7 bg-black rounded-t-sm z-0" />
-                <div
-                  className={`w-32 h-32 sm:w-34 sm:h-34 rounded-full border-3 ${current.border} ${current.color} shadow-2xl relative overflow-hidden flex items-center justify-center z-10`}
-                  style={{ boxShadow: `0 8px 26px ${current.glow}` }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-purple-300/15 to-transparent" />
-                  <div className="w-20 h-20 rounded-full border-2 border-purple-500/50 bg-purple-950/60 flex items-center justify-center">
-                    <div className="w-8 h-8 rounded-full bg-rose-500/20 blur-[3px]" />
-                  </div>
+            {/* 3. Everyday Stoneware Coffee Mug */}
+            {current.type === 'mug' && (
+              <div className="relative flex items-center">
+                {/* Ceramic Mug Body */}
+                <div className="w-20 h-22 rounded-b-xl bg-[#52443b] border-2 border-[#3d322b] shadow-md relative overflow-hidden flex flex-col justify-between">
+                  {/* Top inner lip / coffee depth */}
+                  <div className="w-full h-3 bg-[#261e19] border-b border-[#3d322b] rounded-t-sm" />
+                  {/* Matte speckled ceramic texture */}
+                  <div className="w-full h-full bg-gradient-to-r from-black/20 via-transparent to-white/10" />
                 </div>
+                {/* Mug Handle */}
+                <div className="w-6 h-14 -ml-1 border-4 border-l-0 border-[#52443b] rounded-r-2xl" />
               </div>
             )}
           </div>
         ) : (
-          /* Shattered Shards State (Scattered across the shelf plank) */
-          <div className="w-44 h-20 relative flex items-center justify-center">
-            <div
-              className="absolute w-7 h-4 rounded-sm transform -rotate-45 -translate-x-12 translate-y-4"
-              style={{ backgroundColor: current.shardColors[0] }}
-            />
-            <div
-              className="absolute w-8 h-5 rounded-sm transform rotate-18 -translate-x-3 translate-y-3"
-              style={{ backgroundColor: current.shardColors[1] }}
-            />
-            <div
-              className="absolute w-6 h-3.5 rounded-sm transform rotate-55 translate-x-5 translate-y-2"
-              style={{ backgroundColor: current.shardColors[2] }}
-            />
-            <div
-              className="absolute w-7 h-4.5 rounded-sm transform -rotate-25 translate-x-12 translate-y-5"
-              style={{ backgroundColor: current.shardColors[3] }}
-            />
-            <div
-              className="absolute w-5 h-3 rounded-sm transform rotate-85 -translate-x-7 translate-y-5"
-              style={{ backgroundColor: current.shardColors[4] }}
-            />
-            <div
-              className="absolute w-4 h-2.5 rounded-sm transform -rotate-65 translate-x-18 translate-y-5"
-              style={{ backgroundColor: current.shardColors[0] }}
-            />
+          /* Broken State: Real ceramic / glass shards resting flat on the shelf */
+          <div className="relative w-40 h-10 flex items-end justify-center">
+            {current.type === 'plate' && (
+              <>
+                <div className="absolute w-8 h-4 bg-[#f1ece1] border border-[#d5cebf] rounded-sm transform -rotate-12 -translate-x-12 translate-y-0.5" />
+                <div className="absolute w-10 h-5 bg-[#ece7dc] border border-[#d5cebf] rounded-sm transform rotate-18 -translate-x-4" />
+                <div className="absolute w-7 h-4 bg-[#f4efe5] border border-[#d5cebf] rounded-sm transform rotate-45 translate-x-5" />
+                <div className="absolute w-9 h-4 bg-[#f1ece1] border border-[#d5cebf] rounded-sm transform -rotate-15 translate-x-14 translate-y-0.5" />
+                <div className="absolute w-4 h-2.5 bg-[#e4ded0] border border-[#d5cebf] rounded-sm transform rotate-75 translate-x-0" />
+              </>
+            )}
+
+            {current.type === 'glass' && (
+              <>
+                <div className="absolute w-7 h-3 bg-white/25 border border-white/40 rounded-sm transform -rotate-25 -translate-x-10" />
+                <div className="absolute w-8 h-4 bg-white/20 border border-white/40 rounded-sm transform rotate-15 -translate-x-2" />
+                <div className="absolute w-6 h-3 bg-white/30 border border-white/40 rounded-sm transform -rotate-40 translate-x-6" />
+                <div className="absolute w-5 h-2.5 bg-white/20 border border-white/40 rounded-sm transform rotate-60 translate-x-12" />
+              </>
+            )}
+
+            {current.type === 'mug' && (
+              <>
+                <div className="absolute w-9 h-5 bg-[#52443b] border border-[#3d322b] rounded-sm transform -rotate-15 -translate-x-10" />
+                <div className="absolute w-7 h-4 bg-[#52443b] border border-[#3d322b] rounded-sm transform rotate-30 translate-x-2" />
+                {/* Broken handle piece */}
+                <div className="absolute w-5 h-8 border-3 border-l-0 border-[#52443b] rounded-r-xl transform rotate-85 translate-x-11 translate-y-1" />
+              </>
+            )}
           </div>
         )}
       </div>
 
       {/* ========================================================
-          THICK SOLID BLACK WALL SHELF
-          "like those wall shelf and bigger and thicker, no highlights, just black"
+          THICK SOLID BLACK WALL SHELF (LOCKED AT TOP: 140PX)
+          Zero layout shift, zero vertical nudging, pure solid black.
           ======================================================== */}
-      <div className="relative w-full flex flex-col items-center">
+      <div className="absolute top-[140px] left-0 w-full flex flex-col items-center">
         {/* Main Thick Black Shelf Plank (16px thick, pure black, no highlights) */}
         <div className="w-full h-4 bg-black rounded-[2px]" />
 
         {/* Heavy Black Wall Brackets Underneath */}
         <div className="w-full flex justify-between px-8 -mt-0.5 pointer-events-none">
-          {/* Left Heavy Bracket */}
+          {/* Left Bracket */}
           <div className="flex flex-col items-center">
-            {/* L-bracket angled strut */}
             <svg width="44" height="48" viewBox="0 0 44 48" fill="none">
-              {/* Vertical wall leg */}
               <rect x="0" y="0" width="8" height="48" fill="#000000" />
-              {/* Heavy diagonal brace */}
               <polygon points="0,42 8,42 38,0 28,0" fill="#000000" />
             </svg>
           </div>
 
-          {/* Right Heavy Bracket */}
+          {/* Right Bracket */}
           <div className="flex flex-col items-center">
             <svg width="44" height="48" viewBox="0 0 44 48" fill="none">
-              {/* Vertical wall leg */}
               <rect x="36" y="0" width="8" height="48" fill="#000000" />
-              {/* Heavy diagonal brace */}
               <polygon points="36,42 44,42 16,0 6,0" fill="#000000" />
             </svg>
           </div>

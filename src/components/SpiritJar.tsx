@@ -156,7 +156,17 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
                         <span className="w-1 h-1.5 rounded-full bg-zinc-950 inline-block" />
                         <span className="w-1 h-1.5 rounded-full bg-zinc-950 inline-block" />
                       </span>
-                      <span className="font-bold truncate max-w-[65px]">
+                      <span
+                        className={`font-bold truncate max-w-[65px] ${
+                          ghost.fontFamily === 'wingdings'
+                            ? 'font-wingdings text-xs tracking-wider'
+                            : ghost.fontFamily === 'papyrus'
+                            ? 'font-papyrus'
+                            : ghost.fontFamily === 'modern'
+                            ? 'font-sans-undertale'
+                            : 'font-serif'
+                        }`}
+                      >
                         "{ghost.text}"
                       </span>
                       <button
@@ -197,7 +207,17 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
                         <span className="w-1 h-1.5 rounded-full bg-rose-950 inline-block" />
                         <span className="w-1 h-1.5 rounded-full bg-rose-950 inline-block" />
                       </span>
-                      <span className="font-bold truncate max-w-[65px] text-rose-950">
+                      <span
+                        className={`font-bold truncate max-w-[65px] text-rose-950 ${
+                          ghost.fontFamily === 'wingdings'
+                            ? 'font-wingdings text-xs tracking-wider'
+                            : ghost.fontFamily === 'papyrus'
+                            ? 'font-papyrus'
+                            : ghost.fontFamily === 'modern'
+                            ? 'font-sans-undertale'
+                            : 'font-serif'
+                        }`}
+                      >
                         "{ghost.text}"
                       </span>
                       <button

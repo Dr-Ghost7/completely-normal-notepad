@@ -30,6 +30,7 @@ export interface Ghost {
     border: string;
     background: string;
   };
+  fontFamily?: NotepadFont;
 }
 
 export interface DocumentSnapshot {

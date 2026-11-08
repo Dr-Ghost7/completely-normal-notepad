@@ -149,6 +149,7 @@ export const Editor: React.FC<EditorProps> = ({
           originY,
           contextSentence,
           lifeSpanBeforeDeletionMs: textAgeMs,
+          fontFamily: settings.fontFamily,
         });
       } else {
         spawnGhost({
@@ -158,10 +159,11 @@ export const Editor: React.FC<EditorProps> = ({
           originY,
           contextSentence,
           lifeSpanBeforeDeletionMs: textAgeMs,
+          fontFamily: settings.fontFamily,
         });
       }
     },
-    [classifyGhost, spawnGhost, spawnPoltergeistBurst]
+    [classifyGhost, spawnGhost, spawnPoltergeistBurst, settings.fontFamily]
   );
 
   /**

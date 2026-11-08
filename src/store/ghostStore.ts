@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { Ghost, GraveyardRecord, DocumentSnapshot, EditorSettings, GhostType } from '../types/ghost';
+import { Ghost, GraveyardRecord, DocumentSnapshot, EditorSettings, GhostType, NotepadFont } from '../types/ghost';
 import { getGhostTheme } from '../lib/ghostClassifier';
 import { ghostAudio } from '../lib/ghostAudio';
 
@@ -39,6 +39,7 @@ interface GhostState {
     originY: number;
     contextSentence: string;
     lifeSpanBeforeDeletionMs: number;
+    fontFamily?: NotepadFont;
   }) => Ghost;
   spawnPoltergeistBurst: (params: {
     words: string[];
@@ -46,6 +47,7 @@ interface GhostState {
     originY: number;
     contextSentence: string;
     lifeSpanBeforeDeletionMs: number;
+    fontFamily?: NotepadFont;
   }) => void;
   updateGhostPositions: (newGhosts: Ghost[]) => void;
   restoreGhost: (ghostId: string, insertAtIndex?: number) => void;
@@ -150,9 +152,10 @@ export const useGhostStore = create<GhostState>()(
       },
 
       spawnGhost: (params) => {
-        const { text, type, originX, originY, contextSentence, lifeSpanBeforeDeletionMs } = params;
+        const { text, type, originX, originY, contextSentence, lifeSpanBeforeDeletionMs, fontFamily } = params;
         const id = `ghost-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
         const theme = getGhostTheme(type);
+        const activeFont = fontFamily || get().settings.fontFamily;
 
         // Random initial velocity based on type speed multiplier
         const angle = Math.random() * Math.PI * 2;
@@ -185,6 +188,7 @@ export const useGhostStore = create<GhostState>()(
             border: theme.border,
             background: theme.background,
           },
+          fontFamily: activeFont,
         };
 
         const graveyardRecord: GraveyardRecord = {
@@ -213,10 +217,11 @@ export const useGhostStore = create<GhostState>()(
       },
 
       spawnPoltergeistBurst: (params) => {
-        const { words, originX, originY, contextSentence, lifeSpanBeforeDeletionMs } = params;
+        const { words, originX, originY, contextSentence, lifeSpanBeforeDeletionMs, fontFamily } = params;
         const ghostsToAdd: Ghost[] = [];
         const graveyardToAdd: GraveyardRecord[] = [];
         const now = Date.now();
+        const activeFont = fontFamily || get().settings.fontFamily;
 
         // Spawn explosive ring of words
         const count = Math.min(words.length, 24); // Cap max spawned at once for peak performance
@@ -256,6 +261,7 @@ export const useGhostStore = create<GhostState>()(
               border: theme.border,
               background: theme.background,
             },
+            fontFamily: activeFont,
           };
 
           ghostsToAdd.push(ghost);

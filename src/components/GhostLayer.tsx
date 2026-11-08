@@ -505,7 +505,21 @@ export const GhostLayer: React.FC<GhostLayerProps> = ({
             </div>
 
             {/* Ghost text content */}
-            <span className="font-serif font-bold tracking-normal leading-tight px-0.5">
+            <span
+              className={`tracking-normal leading-tight px-0.5 ${
+                ghost.fontFamily === 'wingdings'
+                  ? 'font-wingdings text-base tracking-widest'
+                  : ghost.fontFamily === 'papyrus'
+                  ? 'font-papyrus font-semibold tracking-wide'
+                  : ghost.fontFamily === 'modern'
+                  ? 'font-sans-undertale'
+                  : ghost.fontFamily === 'typewriter'
+                  ? 'font-typewriter text-xs sm:text-sm'
+                  : ghost.fontFamily === 'script'
+                  ? 'font-script text-base sm:text-lg'
+                  : 'font-serif font-bold'
+              }`}
+            >
               {ghost.text}
             </span>
 
