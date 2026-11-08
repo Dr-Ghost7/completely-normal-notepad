@@ -159,7 +159,7 @@ export const BookShelf: React.FC = () => {
     <aside
       ref={containerRef}
       aria-label="Wall Shelf with Books"
-      className="fixed right-4 sm:right-6 lg:right-10 top-20 z-20 pointer-events-auto select-none hidden lg:block"
+      className="fixed right-4 sm:right-6 lg:right-10 top-20 z-20 pointer-events-auto select-none hidden lg:block opacity-75 hover:opacity-100 transition-opacity duration-500"
       style={{ width: '300px', height: '220px' }}
     >
       {/* ========================================================

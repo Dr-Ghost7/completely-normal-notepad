@@ -83,7 +83,7 @@ export const DishShelf: React.FC = () => {
     <aside
       ref={containerRef}
       aria-label="Wall Shelf with Dishes"
-      className="fixed left-4 sm:left-6 lg:left-10 top-20 z-20 pointer-events-auto select-none hidden lg:block"
+      className="fixed left-4 sm:left-6 lg:left-10 top-20 z-20 pointer-events-auto select-none hidden lg:block opacity-75 hover:opacity-100 transition-opacity duration-500"
       style={{ width: '300px', height: '220px' }}
     >
       {/* ========================================================

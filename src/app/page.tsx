@@ -16,6 +16,9 @@ import { SpiritJar } from '../components/SpiritJar';
 import { CandleGroup } from '../components/CandleGroup';
 import { DishShelf } from '../components/DishShelf';
 import { BookShelf } from '../components/BookShelf';
+import { HangingBroom } from '../components/HangingBroom';
+import { Hourglass } from '../components/Hourglass';
+import { SpecimenVials } from '../components/SpecimenVials';
 import { Ghost } from '../types/ghost';
 import { getGhostTheme } from '../lib/ghostClassifier';
 import { Sparkles, Ghost as GhostIcon } from 'lucide-react';
@@ -99,12 +102,15 @@ export default function Home() {
         setDropTargetOffset={setDropTargetOffset}
       />
 
-      {/* Wall Shelves in Top-Back Area (Left: Dishes above candles; Right: Books above jar) */}
+      {/* Atmospheric Background Wall Elements */}
+      <HangingBroom />
       <DishShelf />
       <BookShelf />
 
-      {/* Floor Paranormal Elements */}
+      {/* Desk & Floor Paranormal Elements */}
       <CandleGroup />
+      <Hourglass />
+      <SpecimenVials />
       <SpiritJar />
 
       {/* Minimal Footer */}

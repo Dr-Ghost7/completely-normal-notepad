@@ -49,7 +49,17 @@ export const GraveyardBackground: React.FC = () => {
       aria-hidden="true"
       className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none"
     >
-      {/* DISTANT ROLLING CEMETERY HILLS & SILHOUETTE TOMBSTONES */}
+      {/* 1. FAINT GOTHIC STUDY ARCHITECTURE (Subtle stone pilasters & wall wainscoting line) */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        {/* Left Stone Pilaster Arch */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black/80 via-purple-950/20 to-transparent border-r border-purple-900/10" />
+        {/* Right Stone Pilaster Arch */}
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black/80 via-purple-950/20 to-transparent border-l border-purple-900/10" />
+        {/* Subtle Horizontal Study Dado Line */}
+        <div className="absolute top-[48%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-purple-800/20 to-transparent" />
+      </div>
+
+      {/* 2. DISTANT ROLLING CEMETERY HILLS & SILHOUETTE TOMBSTONES */}
       <div className="absolute bottom-0 left-0 right-0 h-64 sm:h-80 w-full opacity-65 transition-opacity duration-700">
         <svg
           viewBox="0 0 1440 320"
