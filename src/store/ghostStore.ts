@@ -99,10 +99,7 @@ const DEFAULT_SETTINGS: EditorSettings = {
   showShare: false,
 };
 
-const INITIAL_TEXT = `Completely normal notepad.
-Nothing unusual here.
-Everything you write stays safe and sound on this page.
-(Try deleting a few words or sentences to test it out...)`;
+const INITIAL_TEXT = 'A completely normal notepad, nothing weird.';
 
 export const useGhostStore = create<GhostState>()(
   persist(
@@ -558,6 +555,20 @@ export const useGhostStore = create<GhostState>()(
         setItem: () => {},
         removeItem: () => {},
       })),
+      version: 2,
+      migrate: (persistedState: unknown, version: number) => {
+        const state = persistedState as { documentText?: string };
+        if (!version || version < 2) {
+          if (
+            !state.documentText ||
+            state.documentText.includes('Nothing unusual here') ||
+            state.documentText.includes('Completely normal notepad.')
+          ) {
+            state.documentText = INITIAL_TEXT;
+          }
+        }
+        return state;
+      },
       partialize: (state) => ({
         documentText: state.documentText,
         ghosts: state.ghosts,

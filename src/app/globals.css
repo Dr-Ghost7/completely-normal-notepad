@@ -183,3 +183,11 @@ div[data-nextjs-toast] {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(225, 29, 72, 0.5);
 }
+
+/* ContentEditable Placeholder */
+[contenteditable]:empty::before {
+  content: attr(data-placeholder);
+  color: rgba(216, 180, 254, 0.35);
+  pointer-events: none;
+  display: block;
+}

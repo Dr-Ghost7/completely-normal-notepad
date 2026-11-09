@@ -534,6 +534,7 @@ export const Editor: React.FC<EditorProps> = ({
           contentEditable
           suppressContentEditableWarning
           spellCheck={false}
+          data-placeholder="A completely normal notepad, nothing weird."
           onInput={handleInput}
           onPaste={handlePaste}
           onCut={handleCut}
