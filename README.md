@@ -17,13 +17,18 @@ Users can interact with floating fragments, drag them back into the manuscript t
 ## Key Features
 
 ### Dynamic Deletion Mechanics
-- **Archetype Classification**: Deletions are analyzed based on character count, deletion speed, and time spent on the page before removal:
-  - *Wisps*: Single-character backspaces that flutter erratically.
-  - *Words*: Standard phrase fragments drifting across the canvas.
-  - *Sentences*: Larger thought fragments with slow, broad drift patterns.
-  - *Regrets*: Words written and erased repeatedly or held for prolonged periods, tethered closely to their point of deletion.
-  - *Poltergeists*: Rapid mass-deletions that burst outward in multi-word clusters.
-- **Bi-directional Restoration**: Floating fragments can be dragged directly back into the editor to re-insert them into the text, or restored with a single click.
+
+Deletions are classified based on character count, deletion speed, and time spent on the page before removal:
+
+| Archetype | Trigger Condition | Visual & Kinetic Behavior |
+| :--- | :--- | :--- |
+| **Wisp** | Single-character backspaces | Lightweight, twitchy spark that flutters erratically near the caret |
+| **Word** | Individual words or short phrases | Steady, buoyant drift across the viewport |
+| **Sentence** | Complete sentences or clauses | Broad, slow oceanic drift with wide oscillations |
+| **Regret** | Repeatedly typed and deleted words, or long-standing text | Tethered by an elastic spring force to its exact deletion coordinate |
+| **Poltergeist** | Mass select-all deletions or rapid multi-paragraph cuts | Bursts outward into clusters of independent wandering word fragments |
+
+Floating fragments can be dragged directly back into the editor to re-insert them into the text, or restored with a single click.
 
 ### Room Environment & Physical Objects
 Surrounding the editor is a series of interactive elements that respond to cursor interaction and passing text entities:
