@@ -235,52 +235,50 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
           )}
         </div>
 
-        {/* Jar Neck Ring with Twine String Wrap */}
-        <div className="mx-auto w-32 h-3.5 bg-white/10 border-x-2 border-t border-white/30 rounded-t-xl backdrop-blur-sm shadow-inner relative flex items-center justify-center">
-          {/* Hemp Twine Cord Wrapped Around Neck */}
-          <div className="absolute inset-x-2 h-1 bg-[#7d5631] border-y border-[#4a2e15] rounded-full shadow-sm" />
-          {/* Twine Knot */}
-          <div className="absolute left-7 w-2.5 h-2.5 rounded-full bg-[#6d4624] border border-[#3e2410] -top-0.5 shadow-sm" />
-        </div>
+        {/* Jar Neck Ring with Twine Cord Wrapped Wall-to-Wall */}
+        <div className="mx-auto w-32 sm:w-36 h-4 bg-white/10 border-x-2 border-t border-white/30 rounded-t-lg backdrop-blur-sm shadow-inner relative z-30 flex items-center">
+          {/* Hemp Twine Cord Wrapped FULLY Across Neck from Side to Side */}
+          <div className="absolute inset-x-0 h-1.5 bg-[#785028] border-y border-[#3d2410] shadow-xs" />
 
-        {/* Small Rustic Horror Specimen Tag: "DON'T OPEN" tied to Jar's Lid */}
-        <div className="absolute left-6 sm:left-8 top-[18px] z-30 pointer-events-auto select-none transition-transform duration-300 origin-top hover:rotate-[-2deg] -rotate-4 flex flex-col items-center">
-          {/* Natural Twine String Loop extending all the way from the Lid into the Tag Eyelet */}
-          <svg width="28" height="32" viewBox="0 0 28 32" className="overflow-visible block">
-            {/* Top Knot tied right at the Jar Lid */}
-            <ellipse cx="14" cy="2" rx="3.5" ry="2" fill="#6d4624" stroke="#3d2612" strokeWidth="0.8" />
-
-            {/* Left and Right Twine Strands running from the lid down to the eyelet */}
-            <path
-              d="M 11 2 C 9 12, 13 22, 14 30"
-              stroke="#8c6138"
-              strokeWidth="1.8"
-              fill="none"
-              strokeLinecap="round"
-            />
-            <path
-              d="M 17 2 C 19 12, 15 22, 14 30"
-              stroke="#7a522e"
-              strokeWidth="1.8"
-              fill="none"
-              strokeLinecap="round"
-            />
-
-            {/* Bottom Knot securing into the Eyelet */}
-            <circle cx="14" cy="30" r="2.2" fill="#5c3a1c" stroke="#38210f" strokeWidth="0.6" />
-          </svg>
-
-          {/* Simple Small Weathered Tag Card */}
-          <div className="relative w-[76px] -mt-1.5 bg-[#dfd4b8] border border-[#a69168] shadow-lg rounded-[2px] py-1.5 px-1.5 flex flex-col items-center">
-            {/* Tag Eyelet Hole */}
-            <div className="w-2.5 h-2.5 rounded-full bg-[#3d2e1b] border border-[#a69168] -mt-2 mb-1 flex items-center justify-center">
-              <div className="w-0.5 h-0.5 rounded-full bg-[#dfd4b8]" />
+          {/* Tag Assembly: Knot on Cord + Twine String + Specimen Tag */}
+          <div className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 pointer-events-auto select-none transition-transform duration-300 origin-top hover:rotate-[-2deg] -rotate-3 flex flex-col items-center">
+            {/* The Knot Tied Directly on the Neck Cord */}
+            <div className="w-3.5 h-3 rounded-full bg-[#5c3a1c] border border-[#331e0c] shadow-xs flex items-center justify-center z-10">
+              <div className="w-1.5 h-1 bg-[#7a4e28] rounded-full" />
             </div>
 
-            {/* Simple 2 Words */}
-            <span className="text-[9.5px] font-mono font-black text-[#851818] tracking-wider uppercase text-center select-none leading-none">
-              DON&apos;T OPEN
-            </span>
+            {/* Twine String Strands extending down from the knot into the Tag Eyelet */}
+            <svg width="24" height="24" viewBox="0 0 24 24" className="overflow-visible block -mt-0.5">
+              <path
+                d="M 9 0 C 8 8, 11 16, 12 22"
+                stroke="#8c6138"
+                strokeWidth="1.8"
+                fill="none"
+                strokeLinecap="round"
+              />
+              <path
+                d="M 15 0 C 16 8, 13 16, 12 22"
+                stroke="#7a522e"
+                strokeWidth="1.8"
+                fill="none"
+                strokeLinecap="round"
+              />
+              {/* Bottom Knot securing into the Eyelet */}
+              <circle cx="12" cy="22" r="2" fill="#5c3a1c" stroke="#331e0c" strokeWidth="0.5" />
+            </svg>
+
+            {/* Simple Small Weathered Tag Card */}
+            <div className="relative w-[76px] -mt-1 bg-[#dfd4b8] border border-[#a69168] shadow-lg rounded-[2px] py-1.5 px-1.5 flex flex-col items-center">
+              {/* Tag Eyelet Hole */}
+              <div className="w-2.5 h-2.5 rounded-full bg-[#3d2e1b] border border-[#a69168] -mt-2 mb-1 flex items-center justify-center">
+                <div className="w-0.5 h-0.5 rounded-full bg-[#dfd4b8]" />
+              </div>
+
+              {/* Simple 2 Words */}
+              <span className="text-[9.5px] font-mono font-black text-[#851818] tracking-wider uppercase text-center select-none leading-none">
+                DON&apos;T OPEN
+              </span>
+            </div>
           </div>
         </div>
 
