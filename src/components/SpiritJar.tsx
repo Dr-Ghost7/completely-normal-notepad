@@ -243,25 +243,37 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
           <div className="absolute left-7 w-2.5 h-2.5 rounded-full bg-[#6d4624] border border-[#3e2410] -top-0.5 shadow-sm" />
         </div>
 
-        {/* Small Rustic Horror Specimen Tag: "DON'T OPEN" */}
-        <div className="absolute left-6 top-3 z-30 pointer-events-auto select-none transition-transform duration-300 origin-top-left hover:rotate-[-3deg] -rotate-6">
-          {/* Natural Twine String Loop from Neck into Tag Eyelet */}
-          <svg width="24" height="18" viewBox="0 0 24 18" className="overflow-visible block ml-6">
+        {/* Small Rustic Horror Specimen Tag: "DON'T OPEN" tied to Jar's Lid */}
+        <div className="absolute left-6 sm:left-8 top-[18px] z-30 pointer-events-auto select-none transition-transform duration-300 origin-top hover:rotate-[-2deg] -rotate-4 flex flex-col items-center">
+          {/* Natural Twine String Loop extending all the way from the Lid into the Tag Eyelet */}
+          <svg width="28" height="32" viewBox="0 0 28 32" className="overflow-visible block">
+            {/* Top Knot tied right at the Jar Lid */}
+            <ellipse cx="14" cy="2" rx="3.5" ry="2" fill="#6d4624" stroke="#3d2612" strokeWidth="0.8" />
+
+            {/* Left and Right Twine Strands running from the lid down to the eyelet */}
             <path
-              d="M 6 0 Q 7 8, 12 16 Q 16 8, 17 0"
+              d="M 11 2 C 9 12, 13 22, 14 30"
               stroke="#8c6138"
-              strokeWidth="1.6"
+              strokeWidth="1.8"
               fill="none"
               strokeLinecap="round"
             />
-            {/* Knot at Eyelet */}
-            <circle cx="12" cy="16" r="1.8" fill="#5c3a1c" />
+            <path
+              d="M 17 2 C 19 12, 15 22, 14 30"
+              stroke="#7a522e"
+              strokeWidth="1.8"
+              fill="none"
+              strokeLinecap="round"
+            />
+
+            {/* Bottom Knot securing into the Eyelet */}
+            <circle cx="14" cy="30" r="2.2" fill="#5c3a1c" stroke="#38210f" strokeWidth="0.6" />
           </svg>
 
-          {/* Simple Small Weathered Tag */}
-          <div className="relative w-[76px] -mt-0.5 bg-[#dfd4b8] border border-[#a69168] shadow-lg rounded-[2px] py-1.5 px-1.5 flex flex-col items-center">
+          {/* Simple Small Weathered Tag Card */}
+          <div className="relative w-[76px] -mt-1.5 bg-[#dfd4b8] border border-[#a69168] shadow-lg rounded-[2px] py-1.5 px-1.5 flex flex-col items-center">
             {/* Tag Eyelet Hole */}
-            <div className="w-2 h-2 rounded-full bg-[#3d2e1b] border border-[#a69168] -mt-2 mb-1 flex items-center justify-center">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#3d2e1b] border border-[#a69168] -mt-2 mb-1 flex items-center justify-center">
               <div className="w-0.5 h-0.5 rounded-full bg-[#dfd4b8]" />
             </div>
 
