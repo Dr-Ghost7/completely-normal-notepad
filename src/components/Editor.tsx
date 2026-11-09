@@ -32,7 +32,14 @@ export const Editor: React.FC<EditorProps> = ({
   const lastTypeTimeRef = useRef<number>(0);
   const textBirthTimesRef = useRef<Map<string, number>>(new Map());
   const isInternalUpdateRef = useRef<boolean>(false);
-  const lastDeletionTimestampRef = useRef<number>(0);
+  const lastKeyDeletionRef = useRef<{ timestamp: number; snippet: string }>({ timestamp: 0, snippet: '' });
+  const lastCutTimestampRef = useRef<number>(0);
+  const lastProcessedDeletionRef = useRef<{ timestamp: number; snippet: string; originX: number; originY: number }>({
+    timestamp: 0,
+    snippet: '',
+    originX: 0,
+    originY: 0,
+  });
 
   useEffect(() => {
     lastTypeTimeRef.current = Date.now();
@@ -65,12 +72,6 @@ export const Editor: React.FC<EditorProps> = ({
   const processDeletion = useCallback(
     (rawDeletedSnippet: string, rangeOrRect: Range | DOMRect | null) => {
       const now = Date.now();
-      // Debounce rapid duplicate event firings (e.g. keydown + beforeinput for the same keystroke)
-      if (now - lastDeletionTimestampRef.current < 45) {
-        return;
-      }
-      lastDeletionTimestampRef.current = now;
-
       const trimmedSnippet = rawDeletedSnippet.trim();
       if (!trimmedSnippet || trimmedSnippet.length === 0) {
         return;
@@ -116,6 +117,24 @@ export const Editor: React.FC<EditorProps> = ({
         originX = editorRect.left + 140 + Math.random() * 80;
         originY = editorRect.top + 160 + Math.random() * 60;
       }
+
+      // Deduplication Guard:
+      // If the exact same snippet was deleted within 450ms at virtually the same coordinates, reject duplicate!
+      const last = lastProcessedDeletionRef.current;
+      const isSameSnippet = last.snippet === trimmedSnippet;
+      const isSameLocation = Math.hypot(originX - last.originX, originY - last.originY) < 35;
+      const isRecent = now - last.timestamp < 450;
+
+      if (isSameSnippet && isSameLocation && isRecent) {
+        return;
+      }
+
+      lastProcessedDeletionRef.current = {
+        timestamp: now,
+        snippet: trimmedSnippet,
+        originX,
+        originY,
+      };
 
       const currentFullText = editor.innerText || '';
       const docLength = currentFullText.length;
@@ -188,6 +207,19 @@ export const Editor: React.FC<EditorProps> = ({
 
       if (!isDelete) {
         lastTypeTimeRef.current = Date.now();
+        return;
+      }
+
+      const now = Date.now();
+      const isCut = inputType === 'deleteByCut';
+
+      // If handleCut already claimed this cut deletion within 500ms, skip companion beforeinput
+      if (isCut && now - lastCutTimestampRef.current < 500) {
+        return;
+      }
+
+      // If handleKeyDown already claimed this keyboard deletion within 500ms, skip companion beforeinput
+      if (!isCut && now - lastKeyDeletionRef.current.timestamp < 500) {
         return;
       }
 
@@ -292,6 +324,10 @@ export const Editor: React.FC<EditorProps> = ({
       }
 
       if (deletedSnippet && deletedSnippet.trim().length > 0) {
+        lastKeyDeletionRef.current = {
+          timestamp: Date.now(),
+          snippet: deletedSnippet.trim(),
+        };
         processDeletion(deletedSnippet, rangeToMeasure);
       }
     }
@@ -362,6 +398,7 @@ export const Editor: React.FC<EditorProps> = ({
       const range = sel.getRangeAt(0);
       const text = range.toString();
       if (text && text.trim().length > 0) {
+        lastCutTimestampRef.current = Date.now();
         processDeletion(text, range);
       }
     }

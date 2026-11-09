@@ -153,7 +153,22 @@ export const useGhostStore = create<GhostState>()(
 
       spawnGhost: (params) => {
         const { text, type, originX, originY, contextSentence, lifeSpanBeforeDeletionMs, fontFamily } = params;
-        const id = `ghost-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+        const now = Date.now();
+
+        // Safety deduplication guard: if an identical ghost at this origin was spawned < 350ms ago, drop duplicate
+        const existingGhosts = get().ghosts;
+        const recentDuplicate = existingGhosts.find(
+          (g) =>
+            g.text === text &&
+            now - g.createdAt < 350 &&
+            Math.hypot(g.originX - originX, g.originY - originY) < 30
+        );
+
+        if (recentDuplicate) {
+          return recentDuplicate;
+        }
+
+        const id = `ghost-${now}-${Math.random().toString(36).slice(2, 7)}`;
         const theme = getGhostTheme(type);
         const activeFont = fontFamily || get().settings.fontFamily;
 
@@ -218,9 +233,18 @@ export const useGhostStore = create<GhostState>()(
 
       spawnPoltergeistBurst: (params) => {
         const { words, originX, originY, contextSentence, lifeSpanBeforeDeletionMs, fontFamily } = params;
+        const now = Date.now();
+
+        // Safety deduplication guard: prevent double poltergeist explosions within 400ms
+        const recentPoltergeist = get().ghosts.find(
+          (g) => g.type === 'poltergeist' && now - g.createdAt < 400
+        );
+        if (recentPoltergeist) {
+          return;
+        }
+
         const ghostsToAdd: Ghost[] = [];
         const graveyardToAdd: GraveyardRecord[] = [];
-        const now = Date.now();
         const activeFont = fontFamily || get().settings.fontFamily;
 
         // Spawn explosive ring of words
