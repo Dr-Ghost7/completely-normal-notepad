@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useGhostStore } from '../store/ghostStore';
-import { useHauntingIntensity } from '../hooks/useGhostStats';
+import { ThemePreset } from '../types/ghost';
 import { ExorcismButton } from './ExorcismButton';
 import {
   Ghost as GhostIcon,
@@ -16,13 +16,11 @@ import {
   EyeOff,
   Flame,
   Trash2,
-  RotateCcw,
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const ghosts = useGhostStore((state) => state.ghosts);
   const graveyard = useGhostStore((state) => state.graveyard);
-  const intensity = useHauntingIntensity();
   const settings = useGhostStore((state) => state.settings);
   const setSetting = useGhostStore((state) => state.setSetting);
   const toggleModal = useGhostStore((state) => state.toggleModal);
@@ -251,7 +249,7 @@ export const Header: React.FC = () => {
                       <button
                         key={t.id}
                         type="button"
-                        onClick={() => setSetting('themePreset', t.id as any)}
+                        onClick={() => setSetting('themePreset', t.id as ThemePreset)}
                         className={`px-2 py-1 rounded-lg text-[10px] font-serif text-left transition-colors cursor-pointer truncate ${
                           settings.themePreset === t.id
                             ? 'bg-rose-950 text-rose-200 border border-rose-600 font-bold'

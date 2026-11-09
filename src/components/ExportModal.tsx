@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useSyncExternalStore } from 'react';
 import { useGhostStore } from '../store/ghostStore';
 import { useGhostStats } from '../hooks/useGhostStats';
 import {
@@ -9,6 +9,9 @@ import {
   downloadFile,
 } from '../lib/exhumedExport';
 import { X, Download, Copy, Check } from 'lucide-react';
+
+const emptySubscribe = () => () => {};
+const getNow = () => Date.now();
 
 export const ExportModal: React.FC = () => {
   const showExport = useGhostStore((state) => state.settings.showExport);
@@ -20,6 +23,7 @@ export const ExportModal: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState<'markdown' | 'text'>('markdown');
   const [copied, setCopied] = useState(false);
+  const exportTime = useSyncExternalStore(emptySubscribe, getNow, () => 0);
 
   if (!showExport) return null;
 
@@ -33,7 +37,7 @@ export const ExportModal: React.FC = () => {
     })),
     graveyard,
     stats,
-    exportedAt: Date.now(),
+    exportedAt: exportTime,
   };
 
   const markdownContent = generateExhumedMarkdown(exportData);

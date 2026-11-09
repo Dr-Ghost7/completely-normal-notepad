@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useGhostStore } from '../store/ghostStore';
 import { ghostAudio } from '../lib/ghostAudio';
 
@@ -35,7 +35,7 @@ export const Hourglass: React.FC = () => {
   }, [flipDirection]);
 
   // Flip the inner glass bulb assembly top-to-bottom on its central horizontal axle
-  const triggerFlip = (direction: 'cw' | 'ccw' = 'cw') => {
+  const triggerFlip = useCallback((direction: 'cw' | 'ccw' = 'cw') => {
     if (isFlippingRef.current) return;
     isFlippingRef.current = true;
     setFlipDirection(direction);
@@ -52,7 +52,7 @@ export const Hourglass: React.FC = () => {
       setFlipDirection(null);
       isFlippingRef.current = false;
     }, 650);
-  };
+  }, [soundEnabled, volume]);
 
   // Monitor ghost collisions to spin the swivel hourglass top-to-bottom
   useEffect(() => {
@@ -74,7 +74,7 @@ export const Hourglass: React.FC = () => {
         break;
       }
     }
-  }, [ghosts, soundEnabled, volume]);
+  }, [ghosts, triggerFlip]);
 
   // Top sand height vs bottom sand height
   const topSandPct = sandProgress;
@@ -101,7 +101,7 @@ export const Hourglass: React.FC = () => {
       onClick={() => triggerFlip('cw')}
       className="fixed left-52 lg:left-60 xl:left-68 2xl:left-72 bottom-4 z-20 pointer-events-auto select-none hidden lg:flex flex-col items-center opacity-85 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
       style={{ width: '92px', height: '192px' }}
-      title="Occult Witch's Hourglass: Grave Dust & Blackened Iron (Click to invert • Spirits can spin it!)"
+      title="Hourglass (Click to invert)"
     >
       <style>{`
         @keyframes hourglassSwivelCw {
@@ -143,10 +143,7 @@ export const Hourglass: React.FC = () => {
         }
       `}</style>
 
-      {/* ========================================================
-          1. STATIONARY OUTER STAND FRAME (Blackened Wrought Iron)
-          Corroded cast iron, dark baluster pillars & socket boss rings
-          ======================================================== */}
+      {/* Stationary outer stand frame */}
       <svg
         viewBox="0 0 92 192"
         className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible"
@@ -200,10 +197,7 @@ export const Hourglass: React.FC = () => {
         <circle cx="82" cy="96" r="2.2" fill="#060408" />
       </svg>
 
-      {/* ========================================================
-          2. SWIVELING INNER GLASS ASSEMBLY (Rotates on central axle)
-          Smoky glass bulb, dark iron pins, and grave dust / bone ash!
-          ======================================================== */}
+      {/* Swiveling inner glass assembly */}
       <div
         style={{
           width: '92px',
@@ -275,11 +269,9 @@ export const Hourglass: React.FC = () => {
           <line x1="24" y1="24" x2="24" y2="168" stroke="#261c33" strokeWidth="1" opacity="0.6" />
           <line x1="68" y1="24" x2="68" y2="168" stroke="#261c33" strokeWidth="1" opacity="0.6" />
 
-          {/* ========================================================
-              GRAVE DUST / BONE ASH SIMULATION (Muted, Somber, Occult)
-              ======================================================== */}
+          {/* Sand simulation */}
 
-          {/* 1. TOP BULB ASH (Draining with concave funnel crater) */}
+          {/* Upper bulb sand */}
           {topSandPct > 0.2 && (
             <>
               <path
@@ -297,7 +289,7 @@ export const Hourglass: React.FC = () => {
             </>
           )}
 
-          {/* 2. CONTINUOUS TRICKLING STREAM THROUGH WAIST */}
+          {/* Central trickling stream */}
           {isDraining && (
             <>
               {/* Central animated ash stream thread */}
@@ -331,7 +323,7 @@ export const Hourglass: React.FC = () => {
             </>
           )}
 
-          {/* 3. BOTTOM BULB ASH MOUND (Accumulating angle of repose cone) */}
+          {/* Lower bulb sand mound */}
           {bottomSandPct > 0.2 && (
             <>
               <path
@@ -349,10 +341,7 @@ export const Hourglass: React.FC = () => {
             </>
           )}
 
-          {/* ========================================================
-              SMOKY ANTIQUE GLASS CHAMBER
-              Muted, shadowy, gothic transparency
-              ======================================================== */}
+          {/* Glass chamber */}
           {/* Glass Bulbs Contour */}
           <path
             d="M 25 24 C 20 52, 22 80, 42 96 C 22 112, 20 140, 25 168 L 67 168 C 72 140, 70 112, 50 96 C 70 80, 72 52, 67 24 Z"

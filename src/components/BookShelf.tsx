@@ -162,10 +162,7 @@ export const BookShelf: React.FC = () => {
       className="fixed left-4 sm:left-6 lg:left-10 top-20 z-20 pointer-events-auto select-none hidden lg:block opacity-75 hover:opacity-100 transition-opacity duration-500"
       style={{ width: '300px', height: '220px' }}
     >
-      {/* ========================================================
-          SUBDUED RESTACK BUTTON (Absolute positioning: ZERO layout shift)
-          Clean, quiet, minimal — no bouncing, no neon gradients.
-          ======================================================== */}
+      {/* Restack button */}
       {isToppled && (
         <button
           type="button"
@@ -178,10 +175,7 @@ export const BookShelf: React.FC = () => {
         </button>
       )}
 
-      {/* ========================================================
-          WORN, EVERYDAY VINTAGE BOOKS
-          Anchored directly onto the top of the shelf plank (bottom: 80px)
-          ======================================================== */}
+      {/* Book stack */}
       <div
         ref={stackRef}
         className="absolute left-1/2 -translate-x-1/2 bottom-[80px] z-10 flex flex-col items-center justify-end"
@@ -231,10 +225,7 @@ export const BookShelf: React.FC = () => {
         })}
       </div>
 
-      {/* ========================================================
-          THICK SOLID BLACK WALL SHELF (LOCKED AT TOP: 140PX)
-          Zero layout shift, exactly level with DishShelf across the room.
-          ======================================================== */}
+      {/* Wall shelf */}
       <div className="absolute top-[140px] left-0 w-full flex flex-col items-center">
         {/* Main Thick Black Shelf Plank (16px thick, pure black, no highlights) */}
         <div className="w-full h-4 bg-black rounded-[2px]" />

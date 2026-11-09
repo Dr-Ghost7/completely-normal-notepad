@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { useGhostStore } from '../store/ghostStore';
-import { Sparkles, Unlock } from 'lucide-react';
+import { Unlock } from 'lucide-react';
 import { ghostAudio } from '../lib/ghostAudio';
 
 interface SpiritJarProps {
@@ -235,19 +235,19 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
           )}
         </div>
 
-        {/* Jar Neck Ring with Twine Cord Wrapped Wall-to-Wall */}
+        {/* Jar neck ring */}
         <div className="mx-auto w-32 sm:w-36 h-4 bg-white/10 border-x-2 border-t border-white/30 rounded-t-lg backdrop-blur-sm shadow-inner relative z-30 flex items-center">
-          {/* Hemp Twine Cord Wrapped FULLY Across Neck from Side to Side */}
+          {/* Twine cord around neck */}
           <div className="absolute inset-x-0 h-1.5 bg-[#785028] border-y border-[#3d2410] shadow-xs" />
 
-          {/* Tag Assembly: Knot on Cord + Twine String + Specimen Tag */}
+          {/* Warning tag assembly */}
           <div className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 pointer-events-auto select-none transition-transform duration-300 origin-top hover:rotate-[-2deg] -rotate-3 flex flex-col items-center">
-            {/* The Knot Tied Directly on the Neck Cord */}
+            {/* Knot on cord */}
             <div className="w-3.5 h-3 rounded-full bg-[#5c3a1c] border border-[#331e0c] shadow-xs flex items-center justify-center z-10">
               <div className="w-1.5 h-1 bg-[#7a4e28] rounded-full" />
             </div>
 
-            {/* Twine String Strands extending down from the knot into the Tag Eyelet */}
+            {/* Twine string */}
             <svg width="24" height="24" viewBox="0 0 24 24" className="overflow-visible block -mt-0.5">
               <path
                 d="M 9 0 C 8 8, 11 16, 12 22"
@@ -263,18 +263,17 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
                 fill="none"
                 strokeLinecap="round"
               />
-              {/* Bottom Knot securing into the Eyelet */}
+              {/* Bottom knot securing into eyelet */}
               <circle cx="12" cy="22" r="2" fill="#5c3a1c" stroke="#331e0c" strokeWidth="0.5" />
             </svg>
 
-            {/* Simple Small Weathered Tag Card */}
+            {/* Tag card */}
             <div className="relative w-[76px] -mt-1 bg-[#dfd4b8] border border-[#a69168] shadow-lg rounded-[2px] py-1.5 px-1.5 flex flex-col items-center">
-              {/* Tag Eyelet Hole */}
+              {/* Eyelet hole */}
               <div className="w-2.5 h-2.5 rounded-full bg-[#3d2e1b] border border-[#a69168] -mt-2 mb-1 flex items-center justify-center">
                 <div className="w-0.5 h-0.5 rounded-full bg-[#dfd4b8]" />
               </div>
 
-              {/* Simple 2 Words */}
               <span className="text-[9.5px] font-mono font-black text-[#851818] tracking-wider uppercase text-center select-none leading-none">
                 DON&apos;T OPEN
               </span>
@@ -282,7 +281,7 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
           </div>
         </div>
 
-        {/* Clear Glass Chamber with Floating Ghosts */}
+        {/* Clear glass chamber */}
         <div
           ref={chamberRef}
           className={`relative w-full h-72 sm:h-80 rounded-3xl transition-all duration-300 overflow-hidden flex flex-col justify-between p-3 border-2 backdrop-blur-md ${
@@ -298,7 +297,7 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
           {/* Bottom Ectoplasm Pool (Where sad ghosts linger and bob) */}
           <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-emerald-500/25 via-purple-700/15 to-transparent pointer-events-none animate-ectoplasm-pulse" />
 
-          {/* Drop indicator prompt when dragging ghost over jar */}
+          {/* Drop indicator overlay */}
           {isDragOver && (
             <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-emerald-950/70 text-emerald-200 animate-in fade-in duration-150">
               <span className="text-3xl animate-bounce">🏺</span>
@@ -308,7 +307,7 @@ export const SpiritJar: React.FC<SpiritJarProps> = ({ onJarBoundsChange }) => {
             </div>
           )}
 
-          {/* ACTIVELY FLOATING SPIRITS INSIDE THE JAR */}
+          {/* Floating spirits inside chamber */}
           <div className="relative w-full h-full">
             {trappedGhosts.map((ghost) => {
               const isSad = ghost.type === 'regret';

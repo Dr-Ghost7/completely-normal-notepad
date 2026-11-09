@@ -21,14 +21,11 @@ import { Hourglass } from '../components/Hourglass';
 import { SpecimenVials } from '../components/SpecimenVials';
 import { Ghost } from '../types/ghost';
 import { getGhostTheme } from '../lib/ghostClassifier';
-import { Sparkles, Ghost as GhostIcon } from 'lucide-react';
 
 export default function Home() {
   const [dropTargetOffset, setDropTargetOffset] = useState<number | null>(null);
   const loadFromShare = useGhostStore((state) => state.loadFromShare);
   const setSetting = useGhostStore((state) => state.setSetting);
-  const toggleModal = useGhostStore((state) => state.toggleModal);
-  const ghosts = useGhostStore((state) => state.ghosts);
 
   // Check URL hash for shared note on initial load
   useEffect(() => {
@@ -73,7 +70,7 @@ export default function Home() {
     }
   }, [loadFromShare, setSetting]);
 
-  const handleGhostDrop = (ghostId: string, charOffset: number | null) => {
+  const handleGhostDrop = () => {
     // Handled directly inside GhostLayer & Editor via Zustand store
   };
 

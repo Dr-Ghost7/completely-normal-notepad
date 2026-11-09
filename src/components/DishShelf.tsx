@@ -39,7 +39,6 @@ export const DishShelf: React.FC = () => {
 
   const [variantIndex, setVariantIndex] = useState(0);
   const [isBroken, setIsBroken] = useState(false);
-  const [repairCount, setRepairCount] = useState(0);
 
   const current = VARIANTS[variantIndex];
 
@@ -67,7 +66,6 @@ export const DishShelf: React.FC = () => {
 
   const handleRestore = () => {
     setIsBroken(false);
-    setRepairCount((c) => c + 1);
     setVariantIndex((prev) => (prev + 1) % VARIANTS.length);
     if (soundEnabled) ghostAudio.playMendChime(volume);
   };
@@ -86,10 +84,7 @@ export const DishShelf: React.FC = () => {
       className="fixed right-4 sm:right-6 lg:right-10 top-20 z-20 pointer-events-auto select-none hidden lg:block opacity-75 hover:opacity-100 transition-opacity duration-500"
       style={{ width: '300px', height: '220px' }}
     >
-      {/* ========================================================
-          SUBDUED RESTORE BUTTON (Absolute positioning: ZERO layout shift)
-          Clean, quiet, minimal — no bouncing, no neon gradients.
-          ======================================================== */}
+      {/* Restore button */}
       {isBroken && (
         <button
           type="button"
@@ -102,10 +97,7 @@ export const DishShelf: React.FC = () => {
         </button>
       )}
 
-      {/* ========================================================
-          NORMAL, GROUNDED EVERYDAY DISHES
-          Anchored directly onto the top of the shelf plank (bottom: 80px)
-          ======================================================== */}
+      {/* Dish item */}
       <div
         ref={itemRef}
         onClick={handleManualBreak}
@@ -199,10 +191,7 @@ export const DishShelf: React.FC = () => {
         )}
       </div>
 
-      {/* ========================================================
-          THICK SOLID BLACK WALL SHELF (LOCKED AT TOP: 140PX)
-          Zero layout shift, zero vertical nudging, pure solid black.
-          ======================================================== */}
+      {/* Wall shelf */}
       <div className="absolute top-[140px] left-0 w-full flex flex-col items-center">
         {/* Main Thick Black Shelf Plank (16px thick, pure black, no highlights) */}
         <div className="w-full h-4 bg-black rounded-[2px]" />

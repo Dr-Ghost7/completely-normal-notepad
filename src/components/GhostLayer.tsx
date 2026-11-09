@@ -1,19 +1,60 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useSyncExternalStore } from 'react';
 import { useGhostStore } from '../store/ghostStore';
 import { Ghost } from '../types/ghost';
 import { getCaretOffsetFromPoint } from '../lib/caretHelpers';
 import { ghostAudio } from '../lib/ghostAudio';
 import { Sparkles, Clock, Undo2, Lock } from 'lucide-react';
 
+const emptySubscribe = () => () => {};
+
+const GhostTooltip: React.FC<{ ghost: Ghost }> = ({ ghost }) => {
+  const [timeAgo, setTimeAgo] = useState(() =>
+    Math.max(1, Math.round((Date.now() - ghost.createdAt) / 1000))
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeAgo(Math.max(1, Math.round((Date.now() - ghost.createdAt) / 1000)));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [ghost.createdAt]);
+
+  return (
+    <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-2.5 rounded-2xl bg-[#0e0417]/98 border border-purple-800/80 text-purple-100 shadow-2xl backdrop-blur-md text-[11px] font-sans z-50 animate-in fade-in zoom-in-95 duration-150">
+      <div className="flex items-center justify-between border-b border-purple-800/60 pb-1.5 mb-1.5 font-mono text-[10px]">
+        <span className="uppercase tracking-wider font-semibold text-rose-300">
+          {ghost.type} Ghost
+        </span>
+        <span className="flex items-center gap-1 text-purple-400">
+          <Clock className="w-3 h-3" />
+          {timeAgo}s ago
+        </span>
+      </div>
+
+      {ghost.contextSentence ? (
+        <p className="italic text-purple-200 line-clamp-2">
+          &ldquo;...{ghost.contextSentence.trim()}...&rdquo;
+        </p>
+      ) : (
+        <p className="text-purple-400">Deleted from manuscript</p>
+      )}
+
+      <div className="mt-2 pt-1.5 border-t border-purple-800/60 flex items-center justify-between text-[10px] text-purple-300">
+        <span>Drag into text or Punishment Jar</span>
+        <span className="text-rose-400 font-mono">Catch me</span>
+      </div>
+    </div>
+  );
+};
+
 interface GhostLayerProps {
-  onGhostDrop: (ghostId: string, charOffset: number | null) => void;
+  onGhostDrop?: (ghostId: string, charOffset: number | null) => void;
   setDropTargetOffset: (offset: number | null) => void;
 }
 
 export const GhostLayer: React.FC<GhostLayerProps> = ({
-  onGhostDrop,
   setDropTargetOffset,
 }) => {
   const ghosts = useGhostStore((state) => state.ghosts);
@@ -29,14 +70,12 @@ export const GhostLayer: React.FC<GhostLayerProps> = ({
 
   const [hoveredGhostId, setHoveredGhostId] = useState<string | null>(null);
   const [activeDraggingId, setActiveDraggingId] = useState<string | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const isMounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   const ghostsRef = useRef<Ghost[]>(ghosts);
-  ghostsRef.current = ghosts;
+  useEffect(() => {
+    ghostsRef.current = ghosts;
+  }, [ghosts]);
 
   // Track mouse coordinates and velocity for aerodynamic wind wakes
   const mousePosRef = useRef<{ x: number; y: number }>({ x: -1000, y: -1000 });
@@ -447,7 +486,7 @@ export const GhostLayer: React.FC<GhostLayerProps> = ({
               key={ghost.id}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-serif border shadow-sm shrink-0 ${ghost.colorTheme.background} ${ghost.colorTheme.border} ${ghost.colorTheme.text}`}
             >
-              <span>"{ghost.text}"</span>
+              <span>&ldquo;{ghost.text}&rdquo;</span>
               <button
                 type="button"
                 onClick={() => restoreGhost(ghost.id)}
@@ -468,9 +507,6 @@ export const GhostLayer: React.FC<GhostLayerProps> = ({
       {roamingGhosts.map((ghost) => {
         const isHovered = hoveredGhostId === ghost.id;
         const isDragging = ghost.id === activeDraggingId;
-        const timeAgo = isMounted
-          ? Math.max(1, Math.round((Date.now() - ghost.createdAt) / 1000))
-          : 1;
 
         return (
           <div
@@ -546,32 +582,7 @@ export const GhostLayer: React.FC<GhostLayerProps> = ({
             )}
 
             {/* History Tooltip on Hover */}
-            {isHovered && !isDragging && (
-              <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-2.5 rounded-2xl bg-[#0e0417]/98 border border-purple-800/80 text-purple-100 shadow-2xl backdrop-blur-md text-[11px] font-sans z-50 animate-in fade-in zoom-in-95 duration-150">
-                <div className="flex items-center justify-between border-b border-purple-800/60 pb-1.5 mb-1.5 font-mono text-[10px]">
-                  <span className="uppercase tracking-wider font-semibold text-rose-300">
-                    {ghost.type} Ghost
-                  </span>
-                  <span className="flex items-center gap-1 text-purple-400">
-                    <Clock className="w-3 h-3" />
-                    {timeAgo}s ago
-                  </span>
-                </div>
-
-                {ghost.contextSentence ? (
-                  <p className="italic text-purple-200 line-clamp-2">
-                    "...{ghost.contextSentence.trim()}..."
-                  </p>
-                ) : (
-                  <p className="text-purple-400">Deleted from manuscript</p>
-                )}
-
-                <div className="mt-2 pt-1.5 border-t border-purple-800/60 flex items-center justify-between text-[10px] text-purple-300">
-                  <span>Drag into text or Punishment Jar</span>
-                  <span className="text-rose-400 font-mono">Catch me</span>
-                </div>
-              </div>
-            )}
+            {isHovered && !isDragging && <GhostTooltip ghost={ghost} />}
           </div>
         );
       })}

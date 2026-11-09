@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useGhostStore } from '../store/ghostStore';
 import { encodeShareableUrl } from '../lib/urlShare';
 import { X, Share2, Copy, Check, ExternalLink, Ghost as GhostIcon } from 'lucide-react';
@@ -11,14 +11,10 @@ export const ShareModal: React.FC = () => {
   const documentText = useGhostStore((state) => state.documentText);
   const ghosts = useGhostStore((state) => state.ghosts);
 
-  const [shareUrl, setShareUrl] = useState('');
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    if (showShare) {
-      const url = encodeShareableUrl(documentText, ghosts);
-      setShareUrl(url);
-    }
+  const shareUrl = useMemo(() => {
+    if (!showShare) return '';
+    return encodeShareableUrl(documentText, ghosts);
   }, [showShare, documentText, ghosts]);
 
   if (!showShare) return null;

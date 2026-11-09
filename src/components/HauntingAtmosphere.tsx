@@ -6,7 +6,6 @@ import { useHauntingIntensity } from '../hooks/useGhostStats';
 
 export const HauntingAtmosphere: React.FC = () => {
   const intensity = useHauntingIntensity();
-  const ghostCount = useGhostStore((state) => state.ghosts.length);
   const candleFlicker = useGhostStore((state) => state.settings.candleFlicker);
   const reducedMotion = useGhostStore((state) => state.settings.reducedMotion);
 

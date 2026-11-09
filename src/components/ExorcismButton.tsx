@@ -18,7 +18,7 @@ export const ExorcismButton: React.FC = () => {
 
   const HOLD_DURATION_MS = 2000; // 2 seconds hold to cleanse
 
-  const handlePointerDown = (e: React.PointerEvent | React.KeyboardEvent) => {
+  const handlePointerDown = () => {
     if (ghosts.length === 0) return;
     setIsPressing(true);
     setProgress(0);
@@ -94,7 +94,7 @@ export const ExorcismButton: React.FC = () => {
         onKeyDown={(e) => {
           if (e.key === ' ' || e.key === 'Enter') {
             e.preventDefault();
-            if (!isPressing) handlePointerDown(e);
+            if (!isPressing) handlePointerDown();
           }
         }}
         onKeyUp={(e) => {

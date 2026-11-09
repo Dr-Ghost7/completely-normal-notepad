@@ -79,11 +79,7 @@ export const HangingBroom: React.FC = () => {
         </button>
       )}
 
-      {/* ========================================================
-          LONG MINIMALIST WITCH'S BESOM BROOM
-          Longer slender handle, minimal clean twig brush bundle.
-          Plunges downwards out of view when disturbed.
-          ======================================================== */}
+      {/* Broom assembly */}
       <div
         style={{
           transformOrigin: 'top center',

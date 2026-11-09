@@ -1,20 +1,19 @@
 'use client';
 
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { useGhostStore } from '../store/ghostStore';
 import { classifyGhost } from '../lib/ghostClassifier';
-import { getCaretOffsetFromPoint, extractContextSentence } from '../lib/caretHelpers';
+import { extractContextSentence } from '../lib/caretHelpers';
 import { Sparkles, X, Check, Ghost as GhostIcon } from 'lucide-react';
 
 interface EditorProps {
   onGhostDropped?: (ghostId: string, charIndex: number) => void;
   dropTargetOffset: number | null;
-  setDropTargetOffset: (offset: number | null) => void;
+  setDropTargetOffset?: (offset: number | null) => void;
 }
 
 export const Editor: React.FC<EditorProps> = ({
   dropTargetOffset,
-  setDropTargetOffset,
 }) => {
   const editorRef = useRef<HTMLDivElement>(null);
   const documentText = useGhostStore((state) => state.documentText);
@@ -182,7 +181,7 @@ export const Editor: React.FC<EditorProps> = ({
         });
       }
     },
-    [classifyGhost, spawnGhost, spawnPoltergeistBurst, settings.fontFamily]
+    [spawnGhost, spawnPoltergeistBurst, settings.fontFamily]
   );
 
   /**
@@ -254,7 +253,7 @@ export const Editor: React.FC<EditorProps> = ({
   }, [processDeletion]);
 
   /**
-   * Keydown deletion handler as an airtight companion for Backspace and Delete keys.
+   * Keydown deletion handler for Backspace and Delete keys.
    */
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     // Handle possession shortcuts
@@ -281,7 +280,7 @@ export const Editor: React.FC<EditorProps> = ({
       let rangeToMeasure: Range | null = null;
 
       if (!range.collapsed) {
-        // User highlighted a word, sentence, or entire manuscript and deleted it!
+        // Selection deletion
         deletedSnippet = range.toString();
         rangeToMeasure = range.cloneRange();
       } else if (e.key === 'Backspace') {
@@ -300,7 +299,7 @@ export const Editor: React.FC<EditorProps> = ({
             r.setEnd(node, offset);
             rangeToMeasure = r;
           } else {
-            // Single character backspaced (Wisps!)
+            // Single character backspaced
             deletedSnippet = content.slice(offset - 1, offset);
             const r = document.createRange();
             r.setStart(node, offset - 1);

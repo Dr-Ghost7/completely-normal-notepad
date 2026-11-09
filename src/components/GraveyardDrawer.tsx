@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useGhostStore } from '../store/ghostStore';
 import { useGhostStats } from '../hooks/useGhostStats';
 import { GhostType } from '../types/ghost';
@@ -9,7 +9,6 @@ import {
   Archive,
   RotateCcw,
   Sparkles,
-  Flame,
   Clock,
   TrendingUp,
   Skull,
@@ -22,13 +21,25 @@ export const GraveyardDrawer: React.FC = () => {
   const toggleModal = useGhostStore((state) => state.toggleModal);
   const graveyard = useGhostStore((state) => state.graveyard);
   const stats = useGhostStats();
-  const restoreGhost = useGhostStore((state) => state.restoreGhost);
   const spawnGhost = useGhostStore((state) => state.spawnGhost);
   const clearGraveyard = useGhostStore((state) => state.clearGraveyard);
 
   const [filterType, setFilterType] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [confirmClear, setConfirmClear] = useState<boolean>(false);
+
+  const handleResurrect = useCallback((text: string, type: GhostType, contextSentence: string) => {
+    // Spawn back as an active ghost floating near top center
+    const width = typeof window !== 'undefined' ? window.innerWidth : 800;
+    spawnGhost({
+      text,
+      type,
+      originX: width / 2 + (Math.random() - 0.5) * 100,
+      originY: 200 + (Math.random() - 0.5) * 60,
+      contextSentence,
+      lifeSpanBeforeDeletionMs: 1000,
+    });
+  }, [spawnGhost]);
 
   if (!showGraveyard) return null;
 
@@ -37,18 +48,6 @@ export const GraveyardDrawer: React.FC = () => {
     if (searchQuery && !item.text.toLowerCase().includes(searchQuery.toLowerCase())) return false;
     return true;
   });
-
-  const handleResurrect = (text: string, type: GhostType, contextSentence: string) => {
-    // Spawn back as an active ghost floating near top center
-    spawnGhost({
-      text,
-      type,
-      originX: window.innerWidth / 2 + (Math.random() - 0.5) * 100,
-      originY: 200 + (Math.random() - 0.5) * 60,
-      contextSentence,
-      lifeSpanBeforeDeletionMs: 1000,
-    });
-  };
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
@@ -153,7 +152,7 @@ export const GraveyardDrawer: React.FC = () => {
                   Most Deleted Word:
                 </span>
                 <span className="font-mono font-medium text-fuchsia-300">
-                  "{stats.mostDeletedWords[0].word}" ({stats.mostDeletedWords[0].count}x)
+                  &ldquo;{stats.mostDeletedWords[0].word}&rdquo; ({stats.mostDeletedWords[0].count}x)
                 </span>
               </div>
             )}
@@ -165,7 +164,7 @@ export const GraveyardDrawer: React.FC = () => {
                   Killed &amp; Retyped:
                 </span>
                 <span className="font-mono font-medium text-rose-300">
-                  "{stats.wordsKilledAndRetyped[0].word}" ({stats.wordsKilledAndRetyped[0].retypes}x)
+                  &ldquo;{stats.wordsKilledAndRetyped[0].word}&rdquo; ({stats.wordsKilledAndRetyped[0].retypes}x)
                 </span>
               </div>
             )}
@@ -177,7 +176,7 @@ export const GraveyardDrawer: React.FC = () => {
                   Longest Regret:
                 </span>
                 <span className="font-mono font-medium text-purple-300">
-                  "{stats.longestLingeringRegret.text}" ({Math.round(stats.longestLingeringRegret.durationMs / 1000)}s)
+                  &ldquo;{stats.longestLingeringRegret.text}&rdquo; ({Math.round(stats.longestLingeringRegret.durationMs / 1000)}s)
                 </span>
               </div>
             )}
@@ -237,7 +236,7 @@ export const GraveyardDrawer: React.FC = () => {
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <span className="font-serif font-medium text-purple-100 text-sm">
-                        "{item.text}"
+                        &ldquo;{item.text}&rdquo;
                       </span>
                       <span className="px-1.5 py-0.5 rounded text-[10px] font-mono uppercase bg-purple-900/60 text-purple-300 border border-purple-700/50">
                         {item.type}
@@ -246,7 +245,7 @@ export const GraveyardDrawer: React.FC = () => {
 
                     {item.contextSentence && (
                       <p className="text-[11px] text-purple-400/80 italic line-clamp-1 font-serif">
-                        "...{item.contextSentence.trim()}..."
+                        &ldquo;...{item.contextSentence.trim()}...&rdquo;
                       </p>
                     )}
 

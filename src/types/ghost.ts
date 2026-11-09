@@ -74,5 +74,4 @@ export interface EditorSettings {
   showSeance: boolean;
   showExport: boolean;
   showShare: boolean;
-  showTechInfo: boolean;
 }

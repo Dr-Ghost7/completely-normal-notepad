@@ -419,29 +419,46 @@ class GhostSoundEngine {
   }
 
   /**
-   * Magical chime when broken items or books are restored.
+   * Short, subtle tactile click/settle when an object is replaced or repaired.
+   * Grounded, dark, and quick — a crisp physical contact rather than a jolly musical chime.
    */
   public playMendChime(volume = 0.5) {
     const ctx = this.initContext();
     if (!ctx) return;
 
     const now = ctx.currentTime;
-    [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
 
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, now + idx * 0.06);
+    // 1. Crisp tactile transient click (ceramic/wood contact)
+    const clickOsc = ctx.createOscillator();
+    const clickGain = ctx.createGain();
+    clickOsc.type = 'triangle';
+    clickOsc.frequency.setValueAtTime(720, now);
+    clickOsc.frequency.exponentialRampToValueAtTime(180, now + 0.035);
 
-      gain.gain.setValueAtTime(0.01, now + idx * 0.06);
-      gain.gain.linearRampToValueAtTime(volume * 0.25, now + idx * 0.06 + 0.03);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.4);
+    clickGain.gain.setValueAtTime(0.001, now);
+    clickGain.gain.linearRampToValueAtTime(volume * 0.35, now + 0.004);
+    clickGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
 
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(now + idx * 0.06);
-      osc.stop(now + idx * 0.06 + 0.45);
-    });
+    clickOsc.connect(clickGain);
+    clickGain.connect(ctx.destination);
+    clickOsc.start(now);
+    clickOsc.stop(now + 0.045);
+
+    // 2. Muted wooden/stone shelf resonance body
+    const bodyOsc = ctx.createOscillator();
+    const bodyGain = ctx.createGain();
+    bodyOsc.type = 'sine';
+    bodyOsc.frequency.setValueAtTime(210, now + 0.005);
+    bodyOsc.frequency.exponentialRampToValueAtTime(75, now + 0.08);
+
+    bodyGain.gain.setValueAtTime(0.001, now + 0.005);
+    bodyGain.gain.linearRampToValueAtTime(volume * 0.28, now + 0.015);
+    bodyGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.085);
+
+    bodyOsc.connect(bodyGain);
+    bodyGain.connect(ctx.destination);
+    bodyOsc.start(now + 0.005);
+    bodyOsc.stop(now + 0.09);
   }
 
   /**

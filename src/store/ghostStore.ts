@@ -67,7 +67,7 @@ interface GhostState {
 
   // Modals & UI toggles
   setSetting: <K extends keyof EditorSettings>(key: K, value: EditorSettings[K]) => void;
-  toggleModal: (modal: 'showGraveyard' | 'showSeance' | 'showExport' | 'showShare' | 'showTechInfo') => void;
+  toggleModal: (modal: 'showGraveyard' | 'showSeance' | 'showExport' | 'showShare') => void;
 
   // Jar actions
   trapGhostInJar: (ghostId: string) => void;
@@ -97,7 +97,6 @@ const DEFAULT_SETTINGS: EditorSettings = {
   showSeance: false,
   showExport: false,
   showShare: false,
-  showTechInfo: false,
 };
 
 const INITIAL_TEXT = `Completely normal notepad.
