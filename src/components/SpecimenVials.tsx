@@ -3,171 +3,158 @@
 import React from 'react';
 
 /**
- * Specimen Vials & Apothecary Bottles Clustered by the Spirit Jar.
- * Features 5 distinct vessels with unique shapes, stoppers, and glowing occult liquids:
- * 1. Slender Specimen Tube (162px) - Bioluminescent Emerald Ectoplasm
- * 2. Dropper Tincture Bottle (142px) - Deep Ruby Bloodroot Elixir
- * 3. Tallest Graduated Cylinder (172px) - Liquid Phosphor with Volume Marks
- * 4. Faceted Apothecary Flagon (152px) - Deep Cobalt Nightshade Extract
- * 5. Round-Bellied Phial (136px) - Amethyst Mist & Swirling Spirit Vapor
+ * Witch's Table Potions & Occult Concoctions Clustered by the Spirit Jar.
+ * Designed with a dark, grimy, scary aesthetic fit for an occult altar:
+ * - 2 Matched Twin Slender Phials (162px) containing Black Serpent Bile & Cloudy Bone Brine
+ * - 1 Dark Antique Flask (146px) with melted black ritual sealing wax dripping down the neck
+ * - 1 Tall Smoky Apothecary Bottle (170px) with stagnant murky swamp venom & jute wrapping
+ * - 1 Sinister Bulbous Phial (138px) with bruised nightshade sludge & toxic vapor
  *
- * Heights (~136px - 172px) stand at roughly half the height of the spirit jar (~320px).
+ * Heights (~138px - 170px) stand at roughly half the height of the spirit jar (~320px).
  */
 export const SpecimenVials: React.FC = () => {
   return (
     <aside
-      aria-label="Specimen Vials on Desk"
+      aria-label="Witch's Potions on Desk"
       className="fixed right-[12rem] sm:right-[14rem] lg:right-[15.5rem] xl:right-[17rem] 2xl:right-[18.5rem] bottom-4 z-30 pointer-events-auto select-none hidden md:flex items-end gap-2 sm:gap-2.5 opacity-85 hover:opacity-100 transition-opacity duration-300"
     >
       {/* ========================================================
-          1. SLENDER SPECIMEN TUBE (162px tall, Emerald Ectoplasm)
+          TWIN 1: MATCHED TALL SLENDER PHIAL (162px, Black Serpent Bile)
+          (One of two matched twin bottles requested by user)
           ======================================================== */}
       <div
         className="flex flex-col items-center group cursor-pointer transition-transform duration-200 hover:-translate-y-1"
-        title="Specimen #07: Bioluminescent Ectoplasm"
+        title="Black Serpent Bile: Oily Pitched Venom"
       >
-        {/* Cork Stopper */}
-        <div className="w-3.5 h-3.5 bg-gradient-to-b from-[#80532d] via-[#633e1e] to-[#42270f] border border-[#2d1809] rounded-t-xs shadow-sm" />
-        {/* Glass Lip */}
-        <div className="w-4.5 h-1.5 bg-white/20 border-x border-t border-white/40 rounded-t-xs backdrop-blur-xs" />
-        {/* Glass Tube Body */}
-        <div className="w-4 h-[148px] bg-gradient-to-b from-white/12 via-white/5 to-emerald-950/40 border border-white/30 rounded-b-full relative overflow-hidden flex flex-col justify-end shadow-sm">
-          {/* Specular Glare */}
-          <div className="absolute left-0.5 top-1 bottom-1 w-0.5 bg-gradient-to-b from-white/45 via-white/15 to-transparent rounded-full pointer-events-none" />
+        {/* Charred Aged Cork */}
+        <div className="w-3.5 h-3.5 bg-gradient-to-b from-[#422915] via-[#2d1b0c] to-[#170c04] border border-black rounded-t-xs shadow-sm" />
+        {/* Tied Coarse Hemp Twine Ring */}
+        <div className="w-4 h-1.5 bg-[#4a3622] border-y border-[#26190c] -mt-0.5 z-10" />
+        {/* Dark Blown Glass Tube Body */}
+        <div className="w-4 h-[148px] bg-gradient-to-b from-stone-900/40 via-black/30 to-black/70 border border-stone-800/60 rounded-b-full relative overflow-hidden flex flex-col justify-end shadow-md">
+          {/* Faint Murky Glare */}
+          <div className="absolute left-0.5 top-1 bottom-1 w-0.5 bg-gradient-to-b from-white/20 via-white/5 to-transparent rounded-full pointer-events-none" />
 
-          {/* Glowing Emerald Fluid (65% full) */}
-          <div className="w-full h-[98px] bg-gradient-to-t from-emerald-950/90 via-emerald-600/65 to-emerald-400/40 relative flex flex-col justify-between">
-            {/* Glowing Surface Meniscus */}
-            <div className="w-full h-1 bg-emerald-300/60 shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
-
-            {/* Rising Micro-bubbles */}
-            <div className="relative w-full h-full overflow-hidden pointer-events-none">
-              <span className="absolute left-1 bottom-4 w-1 h-1 rounded-full bg-emerald-200/60 animate-pulse" />
-              <span className="absolute right-1 bottom-10 w-0.5 h-0.5 rounded-full bg-emerald-100/70" />
-              <span className="absolute left-1.5 bottom-16 w-0.5 h-0.5 rounded-full bg-emerald-200/50" />
-            </div>
+          {/* Thick Pitch-Black Oily Bile (68% full) */}
+          <div className="w-full h-[102px] bg-gradient-to-t from-black via-[#0d0f0a] to-[#1c2214] relative flex flex-col justify-between">
+            {/* Dark Scum Meniscus */}
+            <div className="w-full h-1 bg-[#28321e]/80 border-b border-black" />
           </div>
         </div>
       </div>
 
       {/* ========================================================
-          2. DROPPER TINCTURE BOTTLE (142px tall, Ruby Bloodroot)
+          TWIN 2: MATCHED TALL SLENDER PHIAL (162px, Cloudy Bone Brine)
+          (Identical shape and size to Twin 1, matching bottle pair)
           ======================================================== */}
       <div
         className="flex flex-col items-center group cursor-pointer transition-transform duration-200 hover:-translate-y-1"
-        title="Tincture of Bloodroot (Dropper Pipette Inside)"
+        title="Embalming Brine: Ghost Ash & Settled Bone Dust"
       >
-        {/* Rubber Dropper Bulb */}
-        <div className="w-3.5 h-4 bg-gradient-to-b from-[#241c2b] to-[#120c18] rounded-t-full border border-black shadow-inner" />
-        {/* Fluted Dark Collar */}
-        <div className="w-6 h-2.5 bg-gradient-to-b from-[#4a3424] to-[#2e1f13] border border-[#1b1109] rounded-xs shadow-xs" />
-        {/* Glass Bottle Body */}
-        <div className="w-6.5 h-[126px] bg-gradient-to-b from-white/10 via-white/5 to-rose-950/40 border border-white/30 rounded-b-md rounded-t-xs relative overflow-hidden flex flex-col justify-end shadow-sm">
-          {/* Glass Pipette dipped down into the fluid */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-4 w-1 bg-white/25 border-x border-white/30 pointer-events-none" />
+        {/* Charred Aged Cork */}
+        <div className="w-3.5 h-3.5 bg-gradient-to-b from-[#422915] via-[#2d1b0c] to-[#170c04] border border-black rounded-t-xs shadow-sm" />
+        {/* Tied Coarse Hemp Twine Ring */}
+        <div className="w-4 h-1.5 bg-[#4a3622] border-y border-[#26190c] -mt-0.5 z-10" />
+        {/* Dark Blown Glass Tube Body */}
+        <div className="w-4 h-[148px] bg-gradient-to-b from-stone-900/40 via-black/30 to-stone-950/70 border border-stone-800/60 rounded-b-full relative overflow-hidden flex flex-col justify-end shadow-md">
+          {/* Faint Murky Glare */}
+          <div className="absolute left-0.5 top-1 bottom-1 w-0.5 bg-gradient-to-b from-white/20 via-white/5 to-transparent rounded-full pointer-events-none" />
 
-          {/* Specular Glare */}
-          <div className="absolute left-0.5 top-1 bottom-1 w-0.5 bg-gradient-to-b from-white/40 via-white/10 to-transparent rounded-full pointer-events-none" />
+          {/* Cloudy Sickly Pale Brine (55% full) */}
+          <div className="w-full h-[82px] bg-gradient-to-t from-[#1a1c14] via-[#2e3324] to-[#454c37]/70 relative flex flex-col justify-between">
+            {/* Murky Meniscus */}
+            <div className="w-full h-1 bg-[#5b644a]/60 border-b border-[#24291b]" />
 
-          {/* Ruby Red Fluid (72% full) */}
-          <div className="w-full h-[90px] bg-gradient-to-t from-[#450a0a]/95 via-[#991b1b]/70 to-[#ef4444]/40 relative">
-            {/* Glowing Meniscus */}
-            <div className="w-full h-1 bg-rose-300/60 shadow-[0_0_6px_rgba(244,63,94,0.5)]" />
+            {/* Heavy Pale Bone Sediment Settled at Bottom */}
+            <div className="w-full h-4 bg-gradient-to-t from-[#525744]/70 to-transparent blur-[0.5px]" />
           </div>
         </div>
       </div>
 
       {/* ========================================================
-          3. TALLEST GRADUATED SPECIMEN CYLINDER (172px, Phosphor)
+          3. BLACK WAX-SEALED WITCH'S FLASK (146px, Congealed Hemlock)
+          Heavy dark bottle with cracked black ritual wax dripping down
           ======================================================== */}
       <div
         className="flex flex-col items-center group cursor-pointer transition-transform duration-200 hover:-translate-y-1"
-        title="Graduated Laboratory Cylinder: Liquid Phosphor"
+        title="Congealed Hemlock Draught (Black Ritual Wax Seal)"
       >
-        {/* Cork Stopper */}
-        <div className="w-4 h-3.5 bg-gradient-to-b from-[#875932] via-[#694222] to-[#472a12] border border-[#311b0a] rounded-t-xs shadow-sm" />
-        {/* Twine Neck Wrap */}
-        <div className="w-5.5 h-1.5 bg-[#856139] border-y border-[#4f351b] -mt-0.5 z-10 rounded-full" />
-        {/* Tall Cylinder Body */}
-        <div className="w-5 h-[158px] bg-gradient-to-b from-white/12 via-white/5 to-amber-950/40 border border-white/30 rounded-b-sm relative overflow-hidden flex flex-col justify-end shadow-sm">
-          {/* Volumetric Graduations (Tick Marks) */}
-          <div className="absolute right-0.5 top-2 bottom-4 w-2 flex flex-col justify-between pointer-events-none opacity-40">
-            <div className="w-2 h-[1px] bg-white" />
-            <div className="w-1.5 h-[1px] bg-white" />
-            <div className="w-2 h-[1px] bg-white" />
-            <div className="w-1.5 h-[1px] bg-white" />
-            <div className="w-2 h-[1px] bg-white" />
-            <div className="w-1.5 h-[1px] bg-white" />
-            <div className="w-2 h-[1px] bg-white" />
-            <div className="w-1.5 h-[1px] bg-white" />
-            <div className="w-2 h-[1px] bg-white" />
+        {/* Black Sealing Wax Cap with Dripping Runs */}
+        <div className="relative w-6 h-5 flex flex-col items-center z-20">
+          {/* Wax Cap Over Cork */}
+          <div className="w-4.5 h-3 bg-[#0d0712] border border-black rounded-t-xs shadow-md" />
+          {/* Wax Drips Running Down Shoulder */}
+          <div className="w-6 flex justify-between px-0.5 -mt-0.5">
+            <span className="w-1.5 h-3 bg-[#0d0712] rounded-b-full shadow-sm" />
+            <span className="w-1 h-1.5 bg-[#0d0712] rounded-b-full" />
+            <span className="w-1.5 h-3.5 bg-[#0d0712] rounded-b-full shadow-sm" />
           </div>
+        </div>
 
-          {/* Specular Glare */}
-          <div className="absolute left-0.5 top-1 bottom-1 w-0.5 bg-gradient-to-b from-white/45 via-white/15 to-transparent rounded-full pointer-events-none" />
+        {/* Heavy Amber-Black Glass Body */}
+        <div className="w-6.5 h-[126px] bg-gradient-to-b from-black/50 via-[#1f1008]/40 to-black/80 border border-stone-800/70 rounded-b-md rounded-t-xs -mt-1 relative overflow-hidden flex flex-col justify-end shadow-md">
+          {/* Dark Glass Highlight */}
+          <div className="absolute left-0.5 top-1 bottom-1 w-0.5 bg-gradient-to-b from-white/15 via-transparent to-transparent rounded-full pointer-events-none" />
 
-          {/* Ambient Phosphor Vapor in Upper Chamber */}
-          <div className="absolute top-0 bottom-[84px] inset-x-0 bg-gradient-to-b from-amber-400/5 via-amber-300/15 to-transparent pointer-events-none" />
-
-          {/* Liquid Phosphor (52% full) */}
-          <div className="w-full h-[84px] bg-gradient-to-t from-[#78350f]/95 via-[#d97706]/70 to-[#fbbf24]/45 relative">
-            {/* Bright Golden Meniscus */}
-            <div className="w-full h-1 bg-amber-200/70 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
+          {/* Thick Congealed Dried Blood / Hemlock (75% full) */}
+          <div className="w-full h-[94px] bg-gradient-to-t from-[#140202] via-[#290505] to-[#420a0a] relative">
+            {/* Dark Scab Meniscus */}
+            <div className="w-full h-1 bg-[#570d0d]/80 border-b border-[#140202]" />
           </div>
         </div>
       </div>
 
       {/* ========================================================
-          4. FACETED APOTHECARY FLAGON (152px tall, Cobalt Nightshade)
+          4. TALL SMOKY APOTHECARY BOTTLE (170px, Murky Bog Venom)
+          Tallest witch's vessel with rough jute wrapping
           ======================================================== */}
       <div
         className="flex flex-col items-center group cursor-pointer transition-transform duration-200 hover:-translate-y-1"
-        title="Faceted Flagon: Essence of Nightshade"
+        title="Distilled Bog Ichor: Murky Stagnant Swamp Venom"
       >
-        {/* Octagonal Dark Stopper */}
-        <div className="w-5 h-3.5 bg-gradient-to-b from-[#2e2338] to-[#150f1b] border border-black rounded-xs shadow-md" />
-        {/* Glass Neck */}
-        <div className="w-4 h-2 bg-white/15 border-x border-white/30" />
-        {/* Hexagonal Flagon Body */}
-        <div className="w-7 h-[138px] bg-gradient-to-b from-white/10 via-white/5 to-blue-950/40 border border-white/30 rounded-b-md rounded-t-sm relative overflow-hidden flex flex-col justify-end shadow-sm">
-          {/* Vertical Beveled Facet Lines */}
-          <div className="absolute left-2 top-2 bottom-2 w-[1px] bg-white/15 pointer-events-none" />
-          <div className="absolute right-2 top-2 bottom-2 w-[1px] bg-white/15 pointer-events-none" />
+        {/* Rough Weathered Wood Stopper */}
+        <div className="w-4 h-3.5 bg-gradient-to-b from-[#382618] via-[#24170d] to-[#120b06] border border-black rounded-t-xs shadow-sm" />
+        {/* Coarse Frayed Jute Neck Wrap */}
+        <div className="w-5.5 h-2 bg-[#3b2b1a] border-y border-[#1f150b] -mt-0.5 z-10 flex flex-col justify-evenly py-0.5">
+          <div className="w-full h-[0.5px] bg-[#573f27]" />
+        </div>
+        {/* Tall Dark Smoky Glass Body */}
+        <div className="w-5 h-[158px] bg-gradient-to-b from-stone-900/40 via-stone-950/60 to-black/80 border border-stone-800/70 rounded-b-sm relative overflow-hidden flex flex-col justify-end shadow-md">
+          {/* Subtle Glare */}
+          <div className="absolute left-0.5 top-1 bottom-1 w-0.5 bg-gradient-to-b from-white/15 via-white/5 to-transparent rounded-full pointer-events-none" />
 
-          {/* Specular Glare */}
-          <div className="absolute left-0.5 top-1 bottom-1 w-0.5 bg-gradient-to-b from-white/40 via-white/10 to-transparent rounded-full pointer-events-none" />
-
-          {/* Deep Cobalt Indigo Fluid (85% full) */}
-          <div className="w-full h-[116px] bg-gradient-to-t from-[#020617]/95 via-[#1e3a8a]/75 to-[#3b82f6]/40 relative">
-            {/* Blue Meniscus */}
-            <div className="w-full h-1 bg-blue-300/60 shadow-[0_0_6px_rgba(96,165,250,0.5)]" />
+          {/* Stagnant Murky Bog Venom (60% full) */}
+          <div className="w-full h-[95px] bg-gradient-to-t from-[#050803] via-[#10190a] to-[#223314] relative">
+            {/* Scummy Dark Meniscus */}
+            <div className="w-full h-1 bg-[#2f451d]/70 border-b border-[#050803]" />
           </div>
         </div>
       </div>
 
       {/* ========================================================
-          5. ROUND-BELLIED PHIAL (136px tall, Amethyst Spirit Mist)
+          5. SINISTER BULBOUS PHIAL (138px, Bruised Nightshade Fumes)
+          Tilted dark potion vessel with murky toxic sludge and swirling vapor
           ======================================================== */}
       <div
-        className="flex flex-col items-center group cursor-pointer transition-transform duration-200 hover:-translate-y-1 transform -rotate-2 origin-bottom"
-        title="Spherical Phial: Volatile Spirit Vapor"
+        className="flex flex-col items-center group cursor-pointer transition-transform duration-200 hover:-translate-y-1 transform -rotate-3 origin-bottom"
+        title="Nightshade Extract: Blackened Violet Sludge & Toxic Fumes"
       >
-        {/* Tapered Cork Stopper */}
-        <div className="w-3.5 h-3 bg-gradient-to-b from-[#7a4c25] to-[#452710] border border-[#2b1708] rounded-t-xs shadow-sm" />
-        {/* Slender Glass Neck */}
-        <div className="w-3 h-8 bg-white/12 border-x border-white/30 backdrop-blur-xs" />
-        {/* Bulbous Spherical Glass Belly */}
-        <div className="w-8 h-[90px] bg-gradient-to-b from-white/10 via-white/5 to-purple-950/40 border border-white/30 rounded-full relative overflow-hidden flex flex-col justify-end shadow-sm">
-          {/* Specular Glare Curve */}
-          <div className="absolute left-1 top-2 bottom-2 w-1 rounded-full bg-gradient-to-b from-white/40 via-white/10 to-transparent pointer-events-none" />
+        {/* Dark Cork Stopper */}
+        <div className="w-3.5 h-3 bg-gradient-to-b from-[#3d2315] to-[#1c0f08] border border-black rounded-t-xs shadow-sm" />
+        {/* Slender Dark Neck */}
+        <div className="w-3 h-8 bg-stone-900/50 border-x border-stone-800/70" />
+        {/* Dark Bulbous Glass Belly */}
+        <div className="w-8 h-[92px] bg-gradient-to-b from-stone-950/40 via-purple-950/20 to-black/80 border border-stone-800/70 rounded-full relative overflow-hidden flex flex-col justify-end shadow-md">
+          {/* Subtle Curved Glare */}
+          <div className="absolute left-1 top-2 bottom-2 w-1 rounded-full bg-gradient-to-b from-white/15 via-transparent to-transparent pointer-events-none" />
 
-          {/* Swirling Ghostly Vapor in Bulb Upper Half */}
-          <div className="absolute top-2 bottom-[38px] inset-x-1.5 rounded-full bg-gradient-to-t from-purple-500/25 via-rose-500/10 to-transparent animate-pulse pointer-events-none" />
+          {/* Toxic Wisps Swirling in Upper Glass */}
+          <div className="absolute top-2 bottom-[38px] inset-x-1 rounded-full bg-gradient-to-t from-purple-950/40 via-stone-900/20 to-transparent animate-pulse pointer-events-none" />
 
-          {/* Amethyst Violet Fluid in Lower Belly (42% full) */}
-          <div className="w-full h-[38px] bg-gradient-to-t from-[#2e1065]/95 via-[#6b21a8]/70 to-[#c084fc]/40 relative rounded-b-full">
-            {/* Violet Meniscus */}
-            <div className="w-full h-1 bg-purple-300/60 shadow-[0_0_6px_rgba(192,132,252,0.5)]" />
+          {/* Bruised Nightshade Sludge in Lower Belly (42% full) */}
+          <div className="w-full h-[38px] bg-gradient-to-t from-black via-[#160421] to-[#2c0942] relative rounded-b-full">
+            {/* Meniscus */}
+            <div className="w-full h-1 bg-[#47126b]/70 border-b border-black" />
           </div>
         </div>
       </div>

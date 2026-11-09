@@ -95,13 +95,13 @@ export const Hourglass: React.FC = () => {
   return (
     <aside
       ref={containerRef}
-      aria-label="Antique Swivel Hourglass"
+      aria-label="Occult Witch's Swivel Hourglass"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => triggerFlip('cw')}
       className="fixed left-52 lg:left-60 xl:left-68 2xl:left-72 bottom-4 z-20 pointer-events-auto select-none hidden lg:flex flex-col items-center opacity-85 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
       style={{ width: '92px', height: '192px' }}
-      title="Antique Swivel Hourglass (Click to invert • Spirits can spin it!)"
+      title="Occult Witch's Hourglass: Grave Dust & Blackened Iron (Click to invert • Spirits can spin it!)"
     >
       <style>{`
         @keyframes hourglassSwivelCw {
@@ -118,13 +118,13 @@ export const Hourglass: React.FC = () => {
           0% { stroke-dashoffset: 0; }
           100% { stroke-dashoffset: -12; }
         }
-        @keyframes sandGrainFall1 {
-          0% { transform: translateY(0); opacity: 0.95; }
-          100% { transform: translateY(var(--fallDist)); opacity: 0.15; }
+        @keyframes ashParticleFall1 {
+          0% { transform: translateY(0); opacity: 0.8; }
+          100% { transform: translateY(var(--fallDist)); opacity: 0.1; }
         }
-        @keyframes sandGrainFall2 {
-          0% { transform: translateY(0); opacity: 0.9; }
-          100% { transform: translateY(var(--fallDist)); opacity: 0.2; }
+        @keyframes ashParticleFall2 {
+          0% { transform: translateY(0); opacity: 0.75; }
+          100% { transform: translateY(var(--fallDist)); opacity: 0.15; }
         }
         .anim-swivel-cw {
           animation: hourglassSwivelCw 0.65s cubic-bezier(0.34, 1.35, 0.64, 1) forwards;
@@ -135,77 +135,74 @@ export const Hourglass: React.FC = () => {
         .sand-stream-rush {
           animation: sandStreamRush 0.3s linear infinite;
         }
-        .sand-grain-1 {
-          animation: sandGrainFall1 0.22s ease-in infinite;
+        .ash-particle-1 {
+          animation: ashParticleFall1 0.23s ease-in infinite;
         }
-        .sand-grain-2 {
-          animation: sandGrainFall2 0.28s ease-in infinite 0.08s;
-        }
-        .sand-grain-3 {
-          animation: sandGrainFall1 0.25s ease-in infinite 0.14s;
+        .ash-particle-2 {
+          animation: ashParticleFall2 0.29s ease-in infinite 0.08s;
         }
       `}</style>
 
       {/* ========================================================
-          1. STATIONARY OUTER STAND FRAME (Stays firmly on desk)
-          Heavy base, top cap, turned support pillars & axle sockets
+          1. STATIONARY OUTER STAND FRAME (Blackened Wrought Iron)
+          Corroded cast iron, dark baluster pillars & socket boss rings
           ======================================================== */}
       <svg
         viewBox="0 0 92 192"
         className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible"
       >
         <defs>
-          <linearGradient id="bronzeFrameGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#120d18" />
-            <stop offset="35%" stopColor="#251a30" />
-            <stop offset="70%" stopColor="#322240" />
-            <stop offset="100%" stopColor="#120d18" />
+          <linearGradient id="wroughtIronGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#0a070f" />
+            <stop offset="35%" stopColor="#1a1422" />
+            <stop offset="70%" stopColor="#221a2c" />
+            <stop offset="100%" stopColor="#0a070f" />
           </linearGradient>
 
-          <linearGradient id="brassBossGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#78592c" />
-            <stop offset="50%" stopColor="#b88f4e" />
-            <stop offset="100%" stopColor="#453116" />
+          <linearGradient id="ironSocketGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#1e1826" />
+            <stop offset="50%" stopColor="#32283e" />
+            <stop offset="100%" stopColor="#110d17" />
           </linearGradient>
         </defs>
 
-        {/* Top Stationary Plate Assembly */}
-        <rect x="6" y="2" width="80" height="6" rx="2" fill="url(#bronzeFrameGrad)" stroke="#09050d" strokeWidth="0.8" />
-        <rect x="12" y="8" width="68" height="7" rx="1.5" fill="#181122" stroke="#2f213e" strokeWidth="0.8" />
-        {/* Top Decorative Finial */}
-        <circle cx="46" cy="1.5" r="3" fill="#8c6a38" stroke="#2a1e10" strokeWidth="0.8" />
-        <circle cx="46" cy="1.5" r="1" fill="#dfbe7e" />
+        {/* Top Stationary Plate Assembly (Matte Blackened Iron) */}
+        <rect x="6" y="2" width="80" height="6" rx="2" fill="url(#wroughtIronGrad)" stroke="#050308" strokeWidth="0.8" />
+        <rect x="12" y="8" width="68" height="7" rx="1.5" fill="#130e1a" stroke="#231b2e" strokeWidth="0.8" />
+        {/* Dark Gothic Finial Knob */}
+        <circle cx="46" cy="1.5" r="3" fill="#261e30" stroke="#0e0a14" strokeWidth="0.8" />
+        <circle cx="46" cy="1.5" r="1" fill="#3a2f48" />
 
-        {/* Bottom Stationary Stepped Pedestal */}
-        <rect x="12" y="177" width="68" height="7" rx="1.5" fill="#181122" stroke="#2f213e" strokeWidth="0.8" />
-        <rect x="6" y="184" width="80" height="6" rx="2" fill="url(#bronzeFrameGrad)" stroke="#09050d" strokeWidth="0.8" />
+        {/* Bottom Stationary Stepped Pedestal (Matte Blackened Iron) */}
+        <rect x="12" y="177" width="68" height="7" rx="1.5" fill="#130e1a" stroke="#231b2e" strokeWidth="0.8" />
+        <rect x="6" y="184" width="80" height="6" rx="2" fill="url(#wroughtIronGrad)" stroke="#050308" strokeWidth="0.8" />
 
         {/* Left & Right Stationary Outer Columns */}
         {/* Left column */}
-        <rect x="8" y="15" width="4" height="162" rx="1" fill="#150f1d" stroke="#08050c" strokeWidth="0.8" />
+        <rect x="8" y="15" width="4" height="162" rx="1" fill="#110c18" stroke="#050308" strokeWidth="0.8" />
         {/* Left column turned baluster rings */}
-        <rect x="7" y="24" width="6" height="3" rx="1" fill="#4d3b24" />
-        <rect x="7" y="165" width="6" height="3" rx="1" fill="#4d3b24" />
+        <rect x="7" y="24" width="6" height="3" rx="1" fill="#251c30" />
+        <rect x="7" y="165" width="6" height="3" rx="1" fill="#251c30" />
 
         {/* Right column */}
-        <rect x="80" y="15" width="4" height="162" rx="1" fill="#150f1d" stroke="#08050c" strokeWidth="0.8" />
+        <rect x="80" y="15" width="4" height="162" rx="1" fill="#110c18" stroke="#050308" strokeWidth="0.8" />
         {/* Right column turned baluster rings */}
-        <rect x="79" y="24" width="6" height="3" rx="1" fill="#4d3b24" />
-        <rect x="79" y="165" width="6" height="3" rx="1" fill="#4d3b24" />
+        <rect x="79" y="24" width="6" height="3" rx="1" fill="#251c30" />
+        <rect x="79" y="165" width="6" height="3" rx="1" fill="#251c30" />
 
         {/* Horizontal Swivel Axle Bearing Bosses (At center y=96) */}
         {/* Left Bearing Socket */}
-        <circle cx="10" cy="96" r="5" fill="url(#brassBossGrad)" stroke="#1a1208" strokeWidth="1" />
-        <circle cx="10" cy="96" r="2.2" fill="#0d0912" />
+        <circle cx="10" cy="96" r="5" fill="url(#ironSocketGrad)" stroke="#0b0811" strokeWidth="1" />
+        <circle cx="10" cy="96" r="2.2" fill="#060408" />
 
         {/* Right Bearing Socket */}
-        <circle cx="82" cy="96" r="5" fill="url(#brassBossGrad)" stroke="#1a1208" strokeWidth="1" />
-        <circle cx="82" cy="96" r="2.2" fill="#0d0912" />
+        <circle cx="82" cy="96" r="5" fill="url(#ironSocketGrad)" stroke="#0b0811" strokeWidth="1" />
+        <circle cx="82" cy="96" r="2.2" fill="#060408" />
       </svg>
 
       {/* ========================================================
           2. SWIVELING INNER GLASS ASSEMBLY (Rotates on central axle)
-          Double glass bulb, horizontal axle pins, and natural sand!
+          Smoky glass bulb, dark iron pins, and grave dust / bone ash!
           ======================================================== */}
       <div
         style={{
@@ -226,33 +223,33 @@ export const Hourglass: React.FC = () => {
           className="w-full h-full overflow-visible fill-none"
         >
           <defs>
-            {/* Natural Warm Desert Sand Gradients */}
-            <linearGradient id="sandTopGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#f5e0b0" />
-              <stop offset="35%" stopColor="#dfb36b" />
-              <stop offset="70%" stopColor="#c59648" />
-              <stop offset="100%" stopColor="#9a6e2a" />
+            {/* Somber Grave Dust / Bone Ash Gradients (Muted, Dark, Scary) */}
+            <linearGradient id="ashTopGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#6e665d" />
+              <stop offset="35%" stopColor="#4c453e" />
+              <stop offset="70%" stopColor="#332d27" />
+              <stop offset="100%" stopColor="#1e1a17" />
             </linearGradient>
 
-            <linearGradient id="sandBottomGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#f7e5be" />
-              <stop offset="30%" stopColor="#e2b972" />
-              <stop offset="70%" stopColor="#c7994b" />
-              <stop offset="100%" stopColor="#8c6120" />
+            <linearGradient id="ashBottomGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#686057" />
+              <stop offset="30%" stopColor="#48413a" />
+              <stop offset="70%" stopColor="#2f2924" />
+              <stop offset="100%" stopColor="#171412" />
             </linearGradient>
 
-            {/* Glowing sand surface dune shimmer */}
-            <linearGradient id="sandSurfaceShine" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#b48339" />
-              <stop offset="50%" stopColor="#fae7b9" />
-              <stop offset="100%" stopColor="#b48339" />
+            {/* Faint matte surface rim (no bright golden shine) */}
+            <linearGradient id="ashSurfaceShine" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#25211c" />
+              <stop offset="50%" stopColor="#574f46" />
+              <stop offset="100%" stopColor="#25211c" />
             </linearGradient>
 
-            {/* Trickling stream thread gradient */}
-            <linearGradient id="streamGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#fff6ce" />
-              <stop offset="50%" stopColor="#eed087" />
-              <stop offset="100%" stopColor="#dc9e47" />
+            {/* Dull bone ash stream trickle */}
+            <linearGradient id="ashStreamGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#877f74" />
+              <stop offset="50%" stopColor="#5e564c" />
+              <stop offset="100%" stopColor="#363029" />
             </linearGradient>
 
             {/* Upper Bulb Interior Mask */}
@@ -266,34 +263,34 @@ export const Hourglass: React.FC = () => {
             </clipPath>
           </defs>
 
-          {/* Horizontal Swivel Axle Pins (Reaches from inner waist into frame sockets) */}
-          <rect x="10" y="94.5" width="32" height="3" rx="1.5" fill="#694e27" stroke="#332411" strokeWidth="0.8" />
-          <rect x="50" y="94.5" width="32" height="3" rx="1.5" fill="#694e27" stroke="#332411" strokeWidth="0.8" />
+          {/* Horizontal Swivel Axle Pins (Blackened Iron) */}
+          <rect x="10" y="94.5" width="32" height="3" rx="1.5" fill="#2b2234" stroke="#120c18" strokeWidth="0.8" />
+          <rect x="50" y="94.5" width="32" height="3" rx="1.5" fill="#2b2234" stroke="#120c18" strokeWidth="0.8" />
 
-          {/* Inner Protective Brass End Caps */}
-          <rect x="23" y="18" width="46" height="6" rx="2" fill="#2d2216" stroke="#684f2b" strokeWidth="1" />
-          <rect x="23" y="168" width="46" height="6" rx="2" fill="#2d2216" stroke="#684f2b" strokeWidth="1" />
+          {/* Inner Protective Dark Cast Iron End Caps */}
+          <rect x="23" y="18" width="46" height="6" rx="2" fill="#171120" stroke="#2c213b" strokeWidth="1" />
+          <rect x="23" y="168" width="46" height="6" rx="2" fill="#171120" stroke="#2c213b" strokeWidth="1" />
 
-          {/* Slender Brass Retaining Rods flanking the glass */}
-          <line x1="24" y1="24" x2="24" y2="168" stroke="#523e25" strokeWidth="1" opacity="0.6" />
-          <line x1="68" y1="24" x2="68" y2="168" stroke="#523e25" strokeWidth="1" opacity="0.6" />
+          {/* Slender Dark Iron Retaining Rods flanking the glass */}
+          <line x1="24" y1="24" x2="24" y2="168" stroke="#261c33" strokeWidth="1" opacity="0.6" />
+          <line x1="68" y1="24" x2="68" y2="168" stroke="#261c33" strokeWidth="1" opacity="0.6" />
 
           {/* ========================================================
-              NATURAL SAND SIMULATION (Physics, Crater & Repose Angle)
+              GRAVE DUST / BONE ASH SIMULATION (Muted, Somber, Occult)
               ======================================================== */}
 
-          {/* 1. TOP BULB SAND (Draining with concave funnel crater) */}
+          {/* 1. TOP BULB ASH (Draining with concave funnel crater) */}
           {topSandPct > 0.2 && (
             <>
               <path
                 d={`M 15 ${topSurfaceY} Q 46 ${topSurfaceY + craterDepth}, 77 ${topSurfaceY} L 77 96 L 15 96 Z`}
-                fill="url(#sandTopGrad)"
+                fill="url(#ashTopGrad)"
                 clipPath="url(#upperBulbClip)"
               />
               <path
                 d={`M 15 ${topSurfaceY} Q 46 ${topSurfaceY + craterDepth}, 77 ${topSurfaceY}`}
-                stroke="url(#sandSurfaceShine)"
-                strokeWidth="1.2"
+                stroke="url(#ashSurfaceShine)"
+                strokeWidth="1"
                 fill="none"
                 clipPath="url(#upperBulbClip)"
               />
@@ -303,50 +300,49 @@ export const Hourglass: React.FC = () => {
           {/* 2. CONTINUOUS TRICKLING STREAM THROUGH WAIST */}
           {isDraining && (
             <>
-              {/* Central animated sand stream thread */}
+              {/* Central animated ash stream thread */}
               <line
                 x1="46"
                 y1="96"
                 x2="46"
                 y2={peakY}
-                stroke="url(#streamGrad)"
-                strokeWidth="2"
+                stroke="url(#ashStreamGrad)"
+                strokeWidth="1.8"
                 strokeDasharray="2.5,2.5"
                 className="sand-stream-rush"
               />
 
-              {/* Real cascading sand grain particles falling along stream */}
+              {/* Muted ash particles drifting down the stream */}
               <g style={{ '--fallDist': `${Math.max(12, peakY - 96)}px` } as React.CSSProperties}>
-                <circle cx="46" cy="98" r="1.1" fill="#fff7d6" className="sand-grain-1" />
-                <circle cx="45.5" cy="102" r="0.9" fill="#fde68a" className="sand-grain-2" />
-                <circle cx="46.5" cy="106" r="1.0" fill="#fef08a" className="sand-grain-3" />
+                <circle cx="46" cy="98" r="1.0" fill="#8c847a" className="ash-particle-1" />
+                <circle cx="45.5" cy="102" r="0.8" fill="#696259" className="ash-particle-2" />
+                <circle cx="46.5" cy="106" r="0.9" fill="#756e64" className="ash-particle-1" />
               </g>
 
-              {/* Kinetic grain splash ripple at the impact peak */}
+              {/* Subtle muted impact ripple at the mound peak */}
               <ellipse
                 cx="46"
                 cy={peakY}
-                rx="2.6"
-                ry="1"
-                fill="#fff9e0"
-                opacity="0.8"
-                className="animate-pulse"
+                rx="2.2"
+                ry="0.8"
+                fill="#595249"
+                opacity="0.5"
               />
             </>
           )}
 
-          {/* 3. BOTTOM BULB SAND MOUND (Accumulating angle of repose cone) */}
+          {/* 3. BOTTOM BULB ASH MOUND (Accumulating angle of repose cone) */}
           {bottomSandPct > 0.2 && (
             <>
               <path
                 d={`M 15 ${bottomLevelY} Q 46 ${peakY}, 77 ${bottomLevelY} L 77 168 L 15 168 Z`}
-                fill="url(#sandBottomGrad)"
+                fill="url(#ashBottomGrad)"
                 clipPath="url(#lowerBulbClip)"
               />
               <path
                 d={`M 15 ${bottomLevelY} Q 46 ${peakY}, 77 ${bottomLevelY}`}
-                stroke="url(#sandSurfaceShine)"
-                strokeWidth="1.2"
+                stroke="url(#ashSurfaceShine)"
+                strokeWidth="1"
                 fill="none"
                 clipPath="url(#lowerBulbClip)"
               />
@@ -354,49 +350,50 @@ export const Hourglass: React.FC = () => {
           )}
 
           {/* ========================================================
-              TRANSLUCENT GLASS CHAMBER & SPECULAR LIGHTING
+              SMOKY ANTIQUE GLASS CHAMBER
+              Muted, shadowy, gothic transparency
               ======================================================== */}
           {/* Glass Bulbs Contour */}
           <path
             d="M 25 24 C 20 52, 22 80, 42 96 C 22 112, 20 140, 25 168 L 67 168 C 72 140, 70 112, 50 96 C 70 80, 72 52, 67 24 Z"
-            fill="rgba(255, 255, 255, 0.03)"
-            stroke="rgba(255, 255, 255, 0.24)"
-            strokeWidth="1.3"
+            fill="rgba(15, 10, 20, 0.2)"
+            stroke="rgba(255, 255, 255, 0.16)"
+            strokeWidth="1.2"
           />
 
-          {/* Refined Glass Specular Glare Highlights */}
+          {/* Subtle Matte Specular Glare (Softened, Not Shiny) */}
           {/* Upper left curved reflection */}
           <path
             d="M 28 32 Q 24 58, 36 82"
-            stroke="rgba(255, 255, 255, 0.38)"
-            strokeWidth="1.3"
+            stroke="rgba(255, 255, 255, 0.2)"
+            strokeWidth="1.1"
             strokeLinecap="round"
           />
           {/* Upper right faint reflection */}
           <path
             d="M 64 36 Q 66 58, 56 80"
-            stroke="rgba(255, 255, 255, 0.16)"
-            strokeWidth="0.9"
+            stroke="rgba(255, 255, 255, 0.08)"
+            strokeWidth="0.8"
           />
           {/* Lower left curved reflection */}
           <path
             d="M 36 110 Q 24 134, 28 160"
-            stroke="rgba(255, 255, 255, 0.28)"
-            strokeWidth="1.3"
+            stroke="rgba(255, 255, 255, 0.15)"
+            strokeWidth="1.1"
             strokeLinecap="round"
           />
           {/* Lower right faint reflection */}
           <path
             d="M 56 112 Q 66 134, 64 156"
-            stroke="rgba(255, 255, 255, 0.14)"
-            strokeWidth="0.9"
+            stroke="rgba(255, 255, 255, 0.07)"
+            strokeWidth="0.8"
           />
         </svg>
       </div>
 
       {/* Subtle Invert Indicator on Hover */}
       {isHovered && flipDirection === null && (
-        <span className="absolute -bottom-5 text-[9px] font-mono text-purple-300/70 tracking-widest uppercase bg-stone-950/80 px-1.5 py-0.5 rounded border border-purple-900/40 pointer-events-none animate-in fade-in duration-200">
+        <span className="absolute -bottom-5 text-[9px] font-mono text-purple-300/60 tracking-widest uppercase bg-stone-950/80 px-1.5 py-0.5 rounded border border-purple-900/40 pointer-events-none animate-in fade-in duration-200">
           Invert
         </span>
       )}
