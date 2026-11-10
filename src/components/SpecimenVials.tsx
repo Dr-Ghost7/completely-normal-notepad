@@ -6,7 +6,7 @@ export const SpecimenVials: React.FC = () => {
   return (
     <aside
       aria-label="Specimen Vials"
-      className="fixed right-[12rem] sm:right-[14rem] lg:right-[15.5rem] xl:right-[17rem] 2xl:right-[18.5rem] bottom-4 z-30 pointer-events-auto select-none hidden md:flex items-end gap-2 sm:gap-2.5 opacity-90 hover:opacity-100 transition-opacity duration-300"
+      className="fixed right-[12rem] sm:right-[14rem] lg:right-[15.5rem] xl:right-[17rem] 2xl:right-[18.5rem] bottom-6 z-30 pointer-events-auto select-none hidden md:flex items-end gap-2 sm:gap-2.5 opacity-90 hover:opacity-100 transition-opacity duration-300"
     >
       {/* Empty slender phial */}
       <div
